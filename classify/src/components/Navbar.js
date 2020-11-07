@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 //Login, account, playlist, playlists, search,
 function Navbar() {
@@ -29,6 +30,11 @@ function Navbar() {
 						<li>
 							<Link to="/search" className="nav-links">
 								Search
+							</Link>
+						</li>
+						<li>
+							<Link to="/Admin" className="nav-links">
+								Admin
 							</Link>
 						</li>
 					</ul>
