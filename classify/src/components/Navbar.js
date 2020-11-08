@@ -70,11 +70,11 @@ function Navbar() {
 								Search
 							</Link>
 						</li>
-						{/* <li className="nav-item">
+						<li className="nav-item">
 							<Link to="/admin" className="nav-links" onClick={closeMobileMenu}>
 								Admin
 							</Link>
-						</li> */}
+						</li>
 					</ul>
 					{button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
 				</div>
