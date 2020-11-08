@@ -46,7 +46,6 @@ function Navbar() {
 							<Link
 								to="/account"
 								className="nav-links"
-								onClick={handleClick}
 								onClick={closeMobileMenu}
 							>
 								Account
