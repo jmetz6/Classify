@@ -31,7 +31,7 @@ function Navbar() {
 				<div className="navbar-container">
 					<Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
 						Classify
-						<i class="fab fa-typo3" />
+						{/* <img src="./public/logo.png" alt="Classify Logo"/> */}
 					</Link>
 					<div className="menu-icon" onClick={handleClick}>
 						<i className={click ? "fas fa-times" : "fas fa-bars"} />
@@ -54,11 +54,11 @@ function Navbar() {
 						</li>
 						<li className="nav-item">
 							<Link
-								to="/playlist"
+								to="/playlists"
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								Playlist
+								Playlists
 							</Link>
 						</li>
 						<li className="nav-item">
