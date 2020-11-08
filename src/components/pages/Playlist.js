@@ -19,27 +19,27 @@ export default function Playlist() {
                 </div>
 
                 <div>
-                    <span>1</span>
-                    <span>Foo</span>
-                    <span>Bar</span>
+                    <span> 1 </span>
+                    <span> Foo </span>
+                    <span> Bar </span>
                     <span>
                         <button>Remove</button>
                     </span>
                 </div>
 
                 <div>
-                    <span>2</span>
-                    <span>Bar</span>
-                    <span>Baz</span>
+                    <span> 2 </span>
+                    <span> Bar </span>
+                    <span> Baz </span>
                     <span>
                         <button>Remove</button>
                     </span>
                 </div>
 
                 <div>
-                    <span>3</span>
-                    <span>Foobar</span>
-                    <span>Baz</span>
+                    <span> 3 </span>
+                    <span> Foobar </span>
+                    <span> Baz </span>
                     <span>
                         <button>Remove</button>
                     </span>

@@ -18,16 +18,16 @@ export default function Playlists() {
 				</div>
 
 				<div>
-					<span>Name</span>
-					<span>User</span>
-					<span>Actions</span>
+					<span> Name </span>
+					<span> User </span>
+					<span> Actions </span>
 				</div>
 
 				<div>
 					<span>
-						<Link to="/playlist">my-playlist</Link>
+						<Link to="/playlist"> my-playlist </Link>
 					</span>
-					<span>user123</span>
+					<span> user123 </span>
 					<span>
 						<button>Select</button>
 						<button>Delete</button>
@@ -36,9 +36,9 @@ export default function Playlists() {
 
 				<div>
 					<span>
-						<Link to="/playlist">favorite-songs</Link>
+						<Link to="/playlist"> favorite-songs </Link>
 					</span>
-					<span>user123</span>
+					<span> user123 </span>
 					<span>
 						<button>Select</button>
 						<button>Delete</button>
@@ -47,9 +47,9 @@ export default function Playlists() {
 
 				<div>
 					<span>
-						<Link to="/playlist">my-songs</Link>
+						<Link to="/playlist"> my-songs </Link>
 					</span>
-					<span>user456</span>
+					<span> user456 </span>
 					<span>
 						<button>Select</button>
 						<button>Delete</button>
