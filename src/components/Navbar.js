@@ -30,7 +30,7 @@ function Navbar() {
 			<nav className="navbar">
 				<div className="navbar-container">
 					<Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-						Classify
+						Classify 🎼
 						{/* <img src="./public/logo.png" alt="Classify Logo"/> */}
 					</Link>
 					<div className="menu-icon" onClick={handleClick}>
@@ -62,7 +62,7 @@ function Navbar() {
 						</li>
 						<li className="nav-item">
 							<Link to="/songs" className="nav-links" onClick={closeMobileMenu}>
-								Songs
+								Songs 🎧
 							</Link>
 						</li>
 						<li className="nav-item">
@@ -71,7 +71,7 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								Artists
+								Artists 🎸
 							</Link>
 						</li>
 						<li className="nav-item">
@@ -80,13 +80,13 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								Playlists
+								Playlists 🎶
 							</Link>
 						</li>
 
 						<li className="nav-item">
 							<Link to="/admin" className="nav-links" onClick={closeMobileMenu}>
-								Admin
+								Admin 🤵
 							</Link>
 						</li>
 					</ul>
