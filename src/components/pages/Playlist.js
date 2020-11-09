@@ -17,6 +17,7 @@ export default function Playlist() {
                 title={"Playlist: " + playlistName}
                 cols={cols}
                 data={data}
+                property="song"
             >
 
             </Table>

@@ -36,13 +36,13 @@ class Table extends Component {
                                                                 row.actions.map(action => {
                                                                     switch(action) {
                                                                         case "add":
-                                                                            return <button className="btn btn-primary" key={action + row.id}>Add</button>
+                                                                            return <button className="btn btn-primary" key={action + row.id}>Add {this.props.property}</button>
                                                                         case "remove":
-                                                                            return <button className="btn btn-secondary" key={action + row.id}>Remove</button>
+                                                                            return <button className="btn btn-secondary" key={action + row.id}>Remove {this.props.property}</button>
                                                                         case "select":
                                                                             return (
-                                                                                <Link key={action + row.id} to={"/" + this.props.selectProp}>
-                                                                                    <button className="btn btn-primary">Select</button>
+                                                                                <Link key={action + row.id} to={"/" + this.props.property}>
+                                                                                    <button className="btn btn-primary">Select {this.props.property}</button>
                                                                                 </Link>
                                                                                 )
                                                                         default:

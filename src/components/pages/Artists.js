@@ -18,6 +18,7 @@ export default function Artist() {
 				title="Artists"
 				cols={cols}
 				data={data}
+				property="artist"
 			>
 			</Table>
 

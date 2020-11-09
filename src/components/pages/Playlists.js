@@ -19,7 +19,7 @@ export default function Playlists() {
 				title="Playlists"
 				cols={cols}
 				data={data}
-				selectProp="playlist"
+				property="playlist"
 			>
 
 			</Table>

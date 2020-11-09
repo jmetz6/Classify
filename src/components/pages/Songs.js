@@ -19,6 +19,7 @@ export default function Songs() {
 				title="Songs"
 				cols={cols}
 				data={data}
+				property="song"
 			>
 			</Table>
 
