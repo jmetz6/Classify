@@ -18,6 +18,7 @@ export default function Admin() {
                     title="Users"
                     cols={cols}
                     data={data}
+                    property="user"
                 ></Table>
             </div>
 		</div>

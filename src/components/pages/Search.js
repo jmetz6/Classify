@@ -23,6 +23,7 @@ export default function Search() {
 				title='Results: "Ludwig van Beethoven"'
 				cols={cols}
 				data={data}
+				property="song"
 			>
 			</Table>
 
