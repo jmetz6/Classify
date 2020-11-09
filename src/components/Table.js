@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 import "./Table.css"
 
@@ -39,7 +40,11 @@ class Table extends Component {
                                                                         case "remove":
                                                                             return <button className="btn btn-secondary" key={action + row.id}>Remove</button>
                                                                         case "select":
-                                                                            return <button className="btn btn-primary" key={action + row.id}>Select</button>
+                                                                            return (
+                                                                                <Link key={action + row.id} to={"/" + this.props.selectProp}>
+                                                                                    <button className="btn btn-primary">Select</button>
+                                                                                </Link>
+                                                                                )
                                                                         default:
                                                                             return null;
                                                                     }
@@ -62,9 +67,12 @@ class Table extends Component {
                 </div>
 
                 <div id="resp-table-footer">
-                    <span className="table-footer-cell"></span>
-                    <span className="table-footer-cell"></span>
-                    <span className="table-footer-cell"></span>
+                    {
+                        this.props.cols.map(i => {
+                            return  <span key={i + "_footer"} className="table-footer-cell"></span>
+                        })
+                    }
+                   
                 </div>
             </div>
         );

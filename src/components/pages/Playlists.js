@@ -1,61 +1,29 @@
 import React from "react";
 import "../../App.css";
 
-import { Link } from "react-router-dom";
+import Table from "../Table";
 
 export default function Playlists() {
+
+	let cols = ["Name", "User", "Actions"];
+    let data = [
+        { id: 1, name: "my songs", user: "user123", actions: ["select", "remove"] },
+		{ id: 2, name: "favorite songs", user: "user123", actions: ["select", "remove"] },
+		{ id: 3, name: "classical music", user: "user456", actions: ["select", "remove"] }
+    ]
+
 	return (
-		<>
-			<div>
-				<span>
-					<h1>
-						Playlists
-					</h1>
-				</span>
+		<div className="playlists flex-page">
+			
+			<Table
+				title="Playlists"
+				cols={cols}
+				data={data}
+				selectProp="playlist"
+			>
 
-				<div>
-					<button>Add Playlist</button>
-				</div>
+			</Table>
 
-				<div>
-					<span> Name </span>
-					<span> User </span>
-					<span> Actions </span>
-				</div>
-
-				<div>
-					<span>
-						<Link to="/playlist"> my-playlist </Link>
-					</span>
-					<span> user123 </span>
-					<span>
-						<button>Select</button>
-						<button>Delete</button>
-					</span>
-				</div>
-
-				<div>
-					<span>
-						<Link to="/playlist"> favorite-songs </Link>
-					</span>
-					<span> user123 </span>
-					<span>
-						<button>Select</button>
-						<button>Delete</button>
-					</span>
-				</div>
-
-				<div>
-					<span>
-						<Link to="/playlist"> my-songs </Link>
-					</span>
-					<span> user456 </span>
-					<span>
-						<button>Select</button>
-						<button>Delete</button>
-					</span>
-				</div>
-			</div>
-		</>
+		</div>
 	);
 }

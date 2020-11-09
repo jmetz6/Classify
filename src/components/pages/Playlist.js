@@ -1,50 +1,25 @@
 import React from "react";
 import "../../App.css";
+import Table from "../Table";
 
 export default function Playlist() {
+
+    let playlistName = "My Songs"
+    let cols = ["Title", "Artist", "Actions"];
+    let data = [
+        { id: 1, title: "Song 1", artist: "Artist 1", actions: ["remove"] },
+        { id: 2, title: "Song 2", artist: "Artist 2", actions: ["remove"] }
+    ]
+
     return (
-        <>
-            <div>
-                <span>
-                    <h1>
-                        Playlist
-					</h1>
-                </span>
+        <div className="playlist flex-page">
+            <Table
+                title={"Playlist: " + playlistName}
+                cols={cols}
+                data={data}
+            >
 
-                <div>
-                    <span>Number</span>
-                    <span>Title</span>
-                    <span>Artist</span>
-                    <span>Actions</span>
-                </div>
-
-                <div>
-                    <span> 1 </span>
-                    <span> Foo </span>
-                    <span> Bar </span>
-                    <span>
-                        <button>Remove</button>
-                    </span>
-                </div>
-
-                <div>
-                    <span> 2 </span>
-                    <span> Bar </span>
-                    <span> Baz </span>
-                    <span>
-                        <button>Remove</button>
-                    </span>
-                </div>
-
-                <div>
-                    <span> 3 </span>
-                    <span> Foobar </span>
-                    <span> Baz </span>
-                    <span>
-                        <button>Remove</button>
-                    </span>
-                </div>
-            </div>
-        </>
+            </Table>
+        </div>
     );
 }

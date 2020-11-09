@@ -49,12 +49,16 @@
 	margin-right: 10%;
 }
 
+.flex-page-column {
+	flex-direction: column;
+}
+
 .btn {
 	padding: 4px 8px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	
+	margin: 1px;
 }
 
 .btn-primary {

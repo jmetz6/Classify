@@ -16,7 +16,7 @@ Source: https://wisdmlabs.com/blog/responsive-tables-using-css-div-tag/
 	font-weight: bold;
 }
 
-#resp-table-header{
+#resp-table-header {
 	display: table-header-group;
 	background-color: black;
 	font-weight: bold;
@@ -24,22 +24,22 @@ Source: https://wisdmlabs.com/blog/responsive-tables-using-css-div-tag/
 	color: white;
 }
 
-.table-header-cell{
+.table-header-cell {
 	display: table-cell;
 	padding: 10px;
 	text-align: justify;
 	border-bottom: 1px solid black;
 }
 
-.resp-table-body{
+.resp-table-body {
     display: table-row-group;
 }
 
-.resp-table-row{
+.resp-table-row {
     display: table-row;
 }
 
-.table-body-cell{
+.table-body-cell {
 	display: table-cell;
 }
 
