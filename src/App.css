@@ -42,3 +42,48 @@
 	color: #fff;
 	font-size: 100px;
 }
+
+.flex-page {
+	display: flex;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.flex-page-column {
+	flex-direction: column;
+}
+
+.btn {
+	padding: 4px 8px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	margin: 1px;
+}
+
+.btn-primary {
+	background-color: gray;
+	border: none;
+	color: white;
+	transition-duration: 0.4s;
+}
+
+.btn-secondary {
+	background-color: white; 
+	border: 2px solid black;
+	color: black;
+	transition-duration: 0.4s;
+	
+}
+
+.btn-primary:hover {
+	background-color: white; 
+	border: 2px solid gray;
+	color: black;
+}
+
+.btn-secondary:hover {
+	background-color: gray; 
+	border: 2px solid gray;
+	color: white;
+}
