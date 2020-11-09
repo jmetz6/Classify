@@ -53,6 +53,11 @@
 	flex-direction: column;
 }
 
+.flex-no-wrap {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
 .btn {
 	padding: 4px 8px;
 	text-align: center;
