@@ -1,37 +1,24 @@
 import React from "react";
 import "../../App.css";
+import Table from "../Table";
+
 
 export default function Admin() {
+    
+    let cols = ["Username", "Playlists", "Actions"];
+    let data = [
+        { id: 1, username: "user123", playlists: "2", actions: ["remove"] },
+        { id: 2, username: "user456", playlists: "1", actions: ["remove"] }
+    ]
+
 	return (
 		<div>
-			<div>
-                <span className="admin">
-                    <h1>
-                        Users
-					</h1>
-                </span>
-
-				<div>
-                    <span> Username </span>
-                    <span> Playlists </span>
-                    <span> Actions </span>
-                </div>
-
-                <div>
-                    <span> user123 </span>
-                    <span> 2 </span>
-                    <span>
-                        <button>Remove User</button>
-                    </span>
-                </div>
-
-                <div>
-                    <span> user456 </span>
-                    <span> 1 </span>
-                    <span>
-                        <button>Remove User</button>
-                    </span>
-                </div>
+			<div className="admin flex-page">
+                <Table
+                    title="Users"
+                    cols={cols}
+                    data={data}
+                ></Table>
             </div>
 		</div>
 	);
