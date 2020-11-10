@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "./Button";
+import { Button, SignUpButton } from "./Button";
 import "./Navbar.css";
 
 //Login, account, playlist, playlists, search,
@@ -31,8 +31,8 @@ function Navbar() {
 				<div className="navbar-container">
 					<Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
 						<div className="flex-no-wrap">
-							<span>Classify</span> 
 							<span>🎼</span>
+							<span>Classify</span>
 						</div>
 						{/* <img src="./public/logo.png" alt="Classify Logo"/> */}
 					</Link>
@@ -60,14 +60,14 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								<span>Search</span> 
 								<span>🔍</span>
+								<span>Search</span>
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/songs" className="nav-links" onClick={closeMobileMenu}>
-								<span>Songs</span> 
-								<span>🎧</span> 
+								<span>🎧</span>
+								<span>Songs</span>
 							</Link>
 						</li>
 						<li className="nav-item">
@@ -76,8 +76,8 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								<span>Artists</span> 
 								<span>🎸</span>
+								<span>Artists</span>
 							</Link>
 						</li>
 						<li className="nav-item">
@@ -86,19 +86,22 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								<span>Playlists</span> 
 								<span>🎶</span>
+								<span>Playlists</span>
 							</Link>
 						</li>
 
 						<li className="nav-item">
 							<Link to="/admin" className="nav-links" onClick={closeMobileMenu}>
-								<span>Admin</span> 
 								<span>🤵</span>
+								<span>Admin</span>
 							</Link>
 						</li>
 					</ul>
-					{button && <Button buttonStyle="btn--outline">Login</Button>}
+					{button && (
+						<SignUpButton buttonStyle="btn--outline">Sign Up</SignUpButton>
+					)}
+					{button && <Button buttonStyle="btn--large">Login</Button>}
 				</div>
 			</nav>
 		</>
