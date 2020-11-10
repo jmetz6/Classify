@@ -99,9 +99,9 @@ function Navbar() {
 						</li>
 					</ul>
 					{button && (
-						<SignUpButton buttonStyle="btn--outline">Sign Up</SignUpButton>
+						<SignUpButton buttonStyle="btn--outline">Sign up</SignUpButton>
 					)}
-					{button && <Button buttonStyle="btn--large">Login</Button>}
+					{button && <Button buttonStyle="btn--medium">Log in</Button>}
 				</div>
 			</nav>
 		</>

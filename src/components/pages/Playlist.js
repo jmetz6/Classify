@@ -12,6 +12,10 @@ export default function Playlist() {
 
 	return (
 		<div className="playlist flex-page">
+			<div>
+				<button className="btn btn-primary">New Playlist</button>
+			</div>
+
 			<Table
 				title={"Playlist: " + playlistName}
 				cols={cols}
