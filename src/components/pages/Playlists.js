@@ -21,18 +21,18 @@ export default function Playlists() {
 	];
 
 	return (
-		<>
-			<div className="playlists flex-page">
-				<div>
-					<button className="btn btn-primary">New Playlist</button>
-				</div>
-				<Table
-					title="Playlists"
-					cols={cols}
-					data={data}
-					property="playlist"
-				></Table>
+		<div className="playlists flex-page flex-page-column">
+
+			<div>
+				<button className="btn btn-primary">Add playlist</button>
 			</div>
-		</>
-	);
+
+			<Table
+				title="Playlists"
+				cols={cols}
+				data={data}
+				property="playlist"
+			></Table>
+		</div>
+);
 }

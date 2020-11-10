@@ -14,7 +14,11 @@ export default function Songs() {
 
 	return (
 	
-		<div className="songs flex-page">
+		<div className="songs flex-page flex-page-column">
+                <div>
+                    <button className="btn btn-primary">Add song</button>
+                </div>
+
 			<Table
 				title="Songs"
 				cols={cols}

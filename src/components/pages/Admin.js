@@ -1,5 +1,6 @@
 import React from "react";
 import "../../App.css";
+import { Button } from "../Button";
 import Table from "../Table";
 
 
@@ -13,7 +14,12 @@ export default function Admin() {
 
 	return (
 		<div>
-			<div className="admin flex-page">
+			<div className="admin flex-page flex-page-column">
+
+                <div>
+                    <button className="btn btn-primary">Add user</button>
+                </div>
+
                 <Table
                     title="Users"
                     cols={cols}

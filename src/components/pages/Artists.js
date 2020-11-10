@@ -12,7 +12,11 @@ export default function Artist() {
     ]
 
 	return (
-		<div className="artist flex-page">
+		<div className="artist flex-page flex-page-column">
+
+			<div>
+				<button className="btn btn-primary">Add artist</button>
+			</div>
 
 			<Table
 				title="Artists"
