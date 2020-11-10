@@ -11,6 +11,7 @@ import Admin from "./components/pages/Admin";
 import Search from "./components/pages/Search";
 import Songs from "./components/pages/Songs";
 import Artists from "./components/pages/Artists";
+import SignUp from "./components/pages/SignUp";
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 					<Route path="/search" component={Search} />
 					<Route path="/songs" component={Songs} />
 					<Route path="/artists" component={Artists} />
+					<Route path="/sign-up" component={SignUp} />
 				</Switch>
 			</Router>
 		</div>
