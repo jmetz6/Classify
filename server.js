@@ -22,23 +22,19 @@ connection.connect((err) => {
 	}
 });
 
-// if (!dev) {
-// 	app.disable("x-powered-by");
-// 	app.use(compression());
-// 	app.use(morgan("common"));
-// 	app.use(express.static(path.resolve(__dirname, "build")));
+if (!dev) {
+	app.disable("x-powered-by");
+	app.use(compression());
+	app.use(morgan("common"));
+	app.use(express.static(path.resolve(__dirname, "build")));
 
-// 	app.get("*", (req, res) => {
-// 		res.sendFile(path.resolve(__dirname, "build", "index.html"));
-// 	});
-// }
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "build", "index.html"));
+	});
+}
 
-// if (dev) {
-// 	app.use(morgan("dev"));
-// }
-
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static("client/build"));
+if (dev) {
+	app.use(morgan("dev"));
 }
 
 // console.log(connection);
