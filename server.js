@@ -4,6 +4,8 @@ const port = process.env.PORT || 5001;
 const express = require("express");
 const app = express();
 const dev = app.get("env") !== "production";
+const morgan = require("morgan");
+const compression = require("compression");
 //mysql authentication
 var mysql = require("mysql");
 var connection = mysql.createConnection({
