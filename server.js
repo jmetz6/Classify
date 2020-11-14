@@ -3,7 +3,7 @@ const path = require("path");
 const port = process.env.PORT || 5001;
 const express = require("express");
 const app = express();
-
+const dev = app.get("env") !== "production";
 //mysql authentication
 var mysql = require("mysql");
 var connection = mysql.createConnection({
@@ -20,11 +20,20 @@ connection.connect((err) => {
 	}
 });
 
-app.use(express.static(path.resolve(__dirname, "build")));
+if (!dev) {
+	app.disable("x-powered-by");
+	app.use(compression());
+	app.use(morgan("common"));
+	app.use(express.static(path.resolve(__dirname, "build")));
 
-app.get("*", (req, res) => {
-	res.sendFile(path.resolve(__dirname, "build", "index.html"));
-});
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "build", "index.html"));
+	});
+}
+
+if (dev) {
+	app.use(morgan("dev"));
+}
 
 // console.log(connection);
 connection.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
