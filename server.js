@@ -4,6 +4,7 @@ const port = process.env.PORT || 5001;
 const express = require("express");
 const app = express();
 
+//mysql authentication
 var mysql = require("mysql");
 var connection = mysql.createConnection({
 	host: "classmysql.engr.oregonstate.edu",
@@ -12,6 +13,7 @@ var connection = mysql.createConnection({
 	database: "cs340_hiewa",
 });
 
+//connect to the database
 connection.connect((err) => {
 	if (err) {
 		return err;
@@ -36,7 +38,7 @@ connection.query("SELECT * FROM `category`", function (error, results, fields) {
 });
 
 const server = createServer(app);
-server.listen(port, function (err) {
+app.listen(port, function (err) {
 	if (err) throw err;
 	console.log("Listening at port " + port + " URL: http://localhost:" + port);
 });
