@@ -1,7 +1,7 @@
 {
-  "name": "node",
+  "name": "classify",
   "version": "0.1.0",
-  "main": "server.js",
+  "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
@@ -24,13 +24,10 @@
   },
 
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd src && npm run build",
-    "install-client": "cd src && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "node server.js",
-    "client": "cd src && npm start",
-    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon server.js\" \"npm run client\""
+        "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
