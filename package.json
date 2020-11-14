@@ -2,7 +2,7 @@
   "name": "classify",
   "version": "0.1.0",
   "main": "server.js",
-  "proxy": "https://localhost:5000",
+  "proxy": "https://localhost:5001",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
