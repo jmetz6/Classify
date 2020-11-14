@@ -1,6 +1,6 @@
 const { createServer } = require("http");
 const path = require("path");
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 const express = require("express");
 const app = express();
 const dev = app.get("env") !== "production";
@@ -26,7 +26,7 @@ if (!dev) {
 	app.disable("x-powered-by");
 	app.use(compression());
 	app.use(morgan("common"));
-	app.use(express.static(path.resolve(__dirname, "../src/build")));
+	app.use(express.static(path.resolve(__dirname, "build")));
 	// app.use(express.static(path.resolve(__dirname, "build")));
 
 	app.get("*", (req, res) => {
