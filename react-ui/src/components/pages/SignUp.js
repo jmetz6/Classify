@@ -3,18 +3,33 @@ import "../../App.css";
 
 export default function SignUp() {
 	return (
-		<div className="login">
-			<h1>Sign up</h1>
-			<div className="login-text">
-				<div className="username">
-					<label for="username">Username</label>
-					<input type="text" />
+		<div className="wrapper fadeInDown">
+			<div id="formContent">
+				{/* <!-- Tabs Titles --> */}
+
+				{/* <!-- Icon --> */}
+				<div className="fadeIn first">
+					<h2>Sign up</h2>
 				</div>
-				<div>
-					<label for="password">Password</label>
-					<input type="text" />
-					<span>{<button>Sign up</button>}</span>
-				</div>
+
+				{/* <!-- Login Form --> */}
+				<form>
+					<input
+						type="text"
+						id="signup"
+						className="fadeIn second"
+						name="signup"
+						placeholder="username"
+					/>
+					<input
+						type="text"
+						id="password"
+						className="fadeIn third"
+						name="signup"
+						placeholder="password"
+					/>
+					<input type="submit" className="fadeIn fourth" value="SIGN UP" />
+				</form>
 			</div>
 		</div>
 	);
