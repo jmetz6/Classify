@@ -3,6 +3,11 @@
 INSERT INTO `users` (`username`, `password`) VALUES 
 (:usernameInput, :passwordInput);
 
+--edit
+UPDATE `users`
+SET `username`=:usernameInput, `password`=:passwordInput
+WHERE `id`=:userIDInput 
+
 --remove
 DELETE FROM `users` WHERE `username`=:usernameInput;
 
@@ -11,6 +16,11 @@ DELETE FROM `users` WHERE `username`=:usernameInput;
 INSERT INTO `playlists` (`name`, `user`) VALUES 
 (:playlistNameInput, (SELECT `id` FROM `users` WHERE `name`=:usernameInput));
 
+--edit
+UPDATE `playlists`
+SET `name`=:nameInput, `user`=(SELECT `id` FROM `users` WHERE `username`=:usernameInput)
+WHERE `name`=:playlistNameInput 
+
 --remove
 DELETE FROM `playlists` WHERE `name`=:playlistNameInput;
 
@@ -18,12 +28,18 @@ DELETE FROM `playlists` WHERE `name`=:playlistNameInput;
 --add
 INSERT INTO `songs` (`name`) VALUES 
 (:songNameInput);
+userIDInput 
 
 INSERT INTO `artists` (`name`) VALUES 
 (:songArtistName);
 
 INSERT INTO `song_artist_association` (`songID`, `artistID`) VALUES 
 ((SELECT `id` FROM `songs` WHERE `name`=:songNameInput), (SELECT `id` FROM `artists` WHERE `name`=:songArtistName));
+
+--edit
+UPDATE `songs`
+SET `name`=:songNameInput
+WHERE `name`=:songNameOriginal
 
 --remove
 DELETE FROM `songs` WHERE `name`=:songNameInput;
@@ -32,6 +48,11 @@ DELETE FROM `songs` WHERE `name`=:songNameInput;
 --add
 INSERT INTO `artists` (`name`) VALUES 
 (:artistNameInput);
+
+--edit
+UPDATE `artists`
+SET `name`=:artistNameInput
+WHERE `name`=:artistNaneOriginal
 
 --remove
 DELETE FROM `artists` WHERE `name`=:artistNameInput;
