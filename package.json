@@ -9,20 +9,17 @@
     "express": "^4.17.1"
   },
   "scripts": {
-    "start": "node server",
-    "build": "cd react-ui/ && npm install && npm run build"
+    "start": "cd server && node server.js",
+    "build": "cd react-ui/ && npm install && npm run build",
+    "dev": "cd react-ui/ && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "mysql": "^2.18.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mars/heroku-cra-node.git"
   },
   "keywords": [
     "node",
