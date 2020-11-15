@@ -7,8 +7,8 @@ export default function Admin() {
     
     let cols = ["Username", "Playlists", "Actions"];
     let data = [
-        { id: 1, username: "user123", playlists: "2", actions: ["remove"] },
-        { id: 2, username: "user456", playlists: "1", actions: ["remove"] }
+        { id: 1, username: "user123", playlists: "2", actions: ["edit", "remove"] },
+        { id: 2, username: "user456", playlists: "1", actions: ["edit", "remove"] }
     ]
 
 	return (
