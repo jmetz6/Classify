@@ -14,6 +14,10 @@ export default function Admin() {
 	return (
 		<div>
 			<div className="admin flex-page">
+                <div>
+                    <button className="btn btn-primary">Add new user</button>
+                </div>
+                
                 <Table
                     title="Users"
                     cols={cols}

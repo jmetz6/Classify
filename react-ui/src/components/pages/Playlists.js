@@ -24,7 +24,7 @@ export default function Playlists() {
 		<>
 			<div className="playlists flex-page">
 				<div>
-					<button className="btn btn-primary">New Playlist</button>
+					<button className="btn btn-primary">Add new playlist</button>
 				</div>
 				<Table
 					title="Playlists"
