@@ -37,6 +37,8 @@ class Table extends Component {
                                                                     switch(action) {
                                                                         case "add":
                                                                             return <button className="btn btn-primary" key={action + row.id}>Add {this.props.property}</button>
+                                                                        case "edit":
+                                                                            return <button className="btn btn-primary" key={action + row.id}>Edit {this.props.property}</button>
                                                                         case "remove":
                                                                             return <button className="btn btn-secondary" key={action + row.id}>Remove {this.props.property}</button>
                                                                         case "select":
