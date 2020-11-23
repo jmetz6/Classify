@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../App.css";
 
-export default function SignUp() {
+export default function SignUp(props) {
+	// const [data, setdata] = useState({
+	// 	Username: "",
+	// 	Password: "",
+	// });
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const apiUrl = "http://localhost:5000/api/signup";
+	const Registration = (e) => {
+		e.preventDefault();
+		// debugger;
+		const data1 = {
+			name: username,
+			word: password,
+		};
+		axios.post(apiUrl, data1).then((result) => {
+			// debugger;
+			console.log(result);
+			// if (result.data.Status == "Invalid") alert("Invalid User");
+			// else
+			alert("successful signup");
+		});
+	};
+	// const onChange = (e) => {
+	// 	e.persist();
+	// 	// debugger;
+	// 	setdata({ ...data, [e.target.name]: e.target.value });
+	// };
 	return (
 		<div className="wrapper fadeInDown">
 			<div id="formContent">
@@ -13,22 +41,37 @@ export default function SignUp() {
 				</div>
 
 				{/* <!-- Login Form --> */}
-				<form>
+				<form onSubmit={Registration} className="user">
 					<input
 						type="text"
+						name="Username"
+						// onChange={onChange}
+						// value={data.Username}
+						onChange={(e) => {
+							setUsername(e.target.value);
+						}}
 						id="signup"
 						className="fadeIn second"
-						name="signup"
 						placeholder="username"
 					/>
 					<input
 						type="text"
 						id="password"
+						name="Password"
+						// onChange={onChange}
+						// value={data.Password}
+						onChange={(e) => {
+							setPassword(e.target.value);
+						}}
 						className="fadeIn third"
-						name="signup"
 						placeholder="password"
 					/>
-					<input type="submit" className="fadeIn fourth" value="SIGN UP" />
+					<input
+						type="submit"
+						onClick={Registration}
+						className="fadeIn fourth"
+						value="SIGN UP"
+					/>
 				</form>
 			</div>
 		</div>
