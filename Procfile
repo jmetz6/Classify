@@ -1,2 +1,2 @@
-web: npm start
-worker: cd server && nodemon server.js
+web: cd react-ui/ && npm start
+worker: cd server && node server.js
