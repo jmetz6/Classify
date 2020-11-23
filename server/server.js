@@ -17,8 +17,8 @@ const config = {
 	user: "e89vriolfxzqk4tm",
 	password: "d5gtcm57uommxadt",
 	database: "hlsijmpn5yktan07",
-	connectionLimit: 5,
-	maxIdle: 5,
+	connectionLimit: 10,
+	maxIdle: 1,
 };
 
 const pool = mysql.createPool(config);
@@ -65,7 +65,7 @@ app.post("/api/login", (req, res) => {
 	});
 });
 
-app.get("/songs", (req, res) => {
+app.get("/api/songs", (req, res) => {
 	const sql = "SELECT * FROM `songs`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
