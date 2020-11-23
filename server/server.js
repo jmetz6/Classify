@@ -8,20 +8,25 @@ const app = express();
 const isDev = process.env.NODE_ENV !== "production";
 const PORT = process.env.PORT || 5000;
 
-const mysql = require("mysql");
+var mysql = require("mysql");
+const MysqlPoolBooster = require('mysql-pool-booster');
+mysql = MysqlPoolBooster(mysql);
+
 const config = {
 
 	host: "klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
 	user: "e89vriolfxzqk4tm",
 	password: "d5gtcm57uommxadt",
 	database: "hlsijmpn5yktan07",
-
+	connectionLimit: 10,
+	maxIdle: 5
 };
 
-const db = mysql.createPool(config);
+const pool = mysql.createPool(config);
+
 
 console.log("Testing Connection");
-db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
+pool.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
 	if (error) throw Error("Could not connect to DB!");
 	if(results[0].solution == 2) {
 		console.log("Connection GOOD!");
@@ -30,14 +35,6 @@ db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
 		console.log("Connection BAD!");
 	}
 });
-
-// const db = mysql.createConnection(config);
-// app.get("/", (req, res) => {
-db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
-	if (error) throw error;
-	console.log("The solution is: ", results);
-});
-// });
 
 app.use(cors());
 app.use(express.json());
@@ -48,7 +45,7 @@ app.post("/api/signup", (req, res) => {
 	const password = req.body.word;
 	const sql =
 		"INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
-	db.query(sql, [username, password], (err, result) => {
+	pool.query(sql, [username, password], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -63,7 +60,7 @@ app.post("/api/login", (req, res) => {
 
 	const sql =
 		"SELECT COUNT(*) FROM `users` where `username`=? AND `password`=?";
-	db.query(sql, [username, password], (err, result) => {
+	pool.query(sql, [username, password], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -74,7 +71,7 @@ app.post("/api/login", (req, res) => {
 
 app.post("/api/songs", (req, res) => {
 	const sql = "SELECT * FROM `songs`";
-	db.query(sql, [], (err, result) => {
+	pool.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -85,7 +82,7 @@ app.post("/api/songs", (req, res) => {
 
 app.post("/api/artists", (req, res) => {
 	const sql = "SELECT * FROM `artists`";
-	db.query(sql, [], (err, result) => {
+	pool.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -96,7 +93,7 @@ app.post("/api/artists", (req, res) => {
 
 app.post("/api/playlists", (req, res) => {
 	const sql = "SELECT * FROM `playlists`";
-	db.query(sql, [], (err, result) => {
+	pool.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -107,7 +104,7 @@ app.post("/api/playlists", (req, res) => {
 
 app.post("/api/playlist", (req, res) => {
 	const sql = "SELECT * FROM `playlist_song_association` WHERE `playlistID`=(SELECT `id` FROM `playlists` WHERE `name`=:playlistNameInput)";
-	db.query(sql, [], (err, result) => {
+	pool.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -118,7 +115,7 @@ app.post("/api/playlist", (req, res) => {
 
 app.post("/api/admin", (req, res) => {
 	const sql = "SELECT * FROM `users`";
-	db.query(sql, [], (err, result) => {
+	pool.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -165,4 +162,17 @@ if (!isDev && cluster.isMaster) {
 			}: listening on port ${PORT}`
 		);
 	});
+
+
+	process.on('SIGINT', function() {
+		console.log('Handle CTRL-C');
+		pool.end();
+		process.exit();
+	});
+
+	process.on('beforeExit', function() {
+		console.log('End pool before exit')
+		pool.end();
+		process.exit();
+	})
 }
