@@ -76,7 +76,7 @@ app.get("/api/songs", (req, res) => {
 	});
 });
 
-app.get("/api/artists", (req, res) => {
+app.post("/api/artists", (req, res) => {
 	const sql = "SELECT * FROM `artists`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
@@ -87,7 +87,7 @@ app.get("/api/artists", (req, res) => {
 	});
 });
 
-app.get("/api/playlists", (req, res) => {
+app.post("/api/playlists", (req, res) => {
 	const sql = "SELECT * FROM `playlists`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
@@ -110,7 +110,7 @@ app.post("/api/playlist", (req, res) => {
 	});
 });
 
-app.get("/api/admin", (req, res) => {
+app.post("/api/admin", (req, res) => {
 	const sql = "SELECT * FROM `users`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
