@@ -1,38 +1,50 @@
-import React from "react";
-
+import Axios from "axios";
+import React, { Component } from "react";
+import "../../App.css";
 import Table from "../Table";
 
-export default function Playlists() {
-	let cols = ["Name", "User", "Actions"];
-	let data = [
-		{ id: 1, name: "my songs", user: "user123", actions: ["select", "edit", "remove"] },
-		{
-			id: 2,
-			name: "favorite songs",
-			user: "user123",
-			actions: ["select", "edit", "remove"],
-		},
-		{
-			id: 3,
-			name: "classical music",
-			user: "user456",
-			actions: ["select", "edit", "remove"],
-		},
-	];
+export default class Playlists extends Component {
 
-	return (
-		<>
+	constructor(props) {
+		super(props)
+		this.state = {
+			cols:  ["Name", "User", "Actions"],
+			data: []
+		}
+	}
+
+	componentDidMount() {
+		let data = [];
+		const apiUrl = "http://localhost:5000/api/playlists";
+		Axios.post(apiUrl).then((result) => {
+			// debugger;
+			console.log(result);
+			if (!result.data.length) {
+				alert("Error retrieving playlists");
+			}
+			else {
+				data = result.data;
+				data.forEach(i => {
+					i.actions = ["select", "edit", "remove"];
+				});
+				this.setState({data});
+			}
+		});
+	}
+
+	render() {
+		return (
 			<div className="playlists flex-page">
 				<div>
 					<button className="btn btn-primary">Add new playlist</button>
 				</div>
 				<Table
 					title="Playlists"
-					cols={cols}
-					data={data}
+					cols={this.state.cols}
+					data={this.state.data}
 					property="playlist"
 				></Table>
 			</div>
-		</>
-	);
+		)
+	}
 }

@@ -19,12 +19,12 @@ export default class Artsits extends Component {
 		Axios.post(apiUrl).then((result) => {
 			console.log(result);
 			if (!result.data.length) {
-				alert("Error retrieving songs");
+				alert("Error retrieving artists");
 			}
 			else {
 				data = result.data;
-				data.forEach(s => {
-					s.actions = ["edit", "remove"];
+				data.forEach(i => {
+					i.actions = ["edit", "remove"];
 				});
 				this.setState({data});
 			}

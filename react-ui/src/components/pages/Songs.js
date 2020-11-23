@@ -22,8 +22,9 @@ export default class Songs extends Component {
 				alert("Error retrieving songs");
 			} else {
 				data = result.data;
-				data.forEach((s) => {
-					s.actions = ["add", "edit", "remove"];
+
+				data.forEach(i => {
+					i.actions = ["add", "edit", "remove"];
 				});
 				this.setState({ data });
 			}
