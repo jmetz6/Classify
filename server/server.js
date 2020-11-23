@@ -56,6 +56,21 @@ app.post("/api/signup", (req, res) => {
 	});
 });
 
+app.post("/api/login", (req, res) => {
+	const username = req.body.name;
+	const password = req.body.word;
+
+	const sqlInsert =
+		"SELECT * FROM `users` where `username`=? AND `password`=?";
+	db.query(sqlInsert, [username, password], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
 	console.error(`Node cluster master ${process.pid} is running`);
