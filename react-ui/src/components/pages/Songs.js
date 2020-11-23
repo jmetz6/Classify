@@ -15,7 +15,7 @@ export default class Songs extends Component {
 	componentDidMount() {
 		let data = [];
 		const apiUrl = "http://localhost:5000/api/songs";
-		Axios.post(apiUrl).then((result) => {
+		Axios.get(apiUrl).then((result) => {
 			// debugger;
 			console.log(result);
 			if (!result.data.length) {
