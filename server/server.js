@@ -50,7 +50,7 @@ app.post("/api/signup", (req, res) => {
 	});
 });
 
-app.get("/api/login", (req, res) => {
+app.post("/api/login", (req, res) => {
 	const username = req.body.name;
 	const password = req.body.word;
 
@@ -76,7 +76,7 @@ app.get("/api/songs", (req, res) => {
 	});
 });
 
-app.get("/api/artists", (req, res) => {
+app.post("/api/artists", (req, res) => {
 	const sql = "SELECT * FROM `artists`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
@@ -87,7 +87,7 @@ app.get("/api/artists", (req, res) => {
 	});
 });
 
-app.get("/api/playlists", (req, res) => {
+app.post("/api/playlists", (req, res) => {
 	const sql = "SELECT * FROM `playlists`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
@@ -98,7 +98,7 @@ app.get("/api/playlists", (req, res) => {
 	});
 });
 
-app.get("/api/playlist", (req, res) => {
+app.post("/api/playlist", (req, res) => {
 	const sql =
 		"SELECT * FROM `playlist_song_association` WHERE `playlistID`=(SELECT `id` FROM `playlists` WHERE `name`=:playlistNameInput)";
 	pool.query(sql, [], (err, result) => {
@@ -110,7 +110,7 @@ app.get("/api/playlist", (req, res) => {
 	});
 });
 
-app.get("/api/admin", (req, res) => {
+app.post("/api/admin", (req, res) => {
 	const sql = "SELECT * FROM `users`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
