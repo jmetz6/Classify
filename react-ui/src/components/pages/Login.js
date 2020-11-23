@@ -19,7 +19,7 @@ export default function Login() {
 			if (!result.data.length) {
 				alert("Invalid User");
 			} else {
-				if (result.data[0]["COUNT(*)"] == 1) {
+				if (result.data[0]["COUNT(*)"] === 1) {
 					alert("successful login");
 				} else {
 					alert("Invalid User");
