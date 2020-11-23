@@ -62,7 +62,7 @@ app.post("/api/login", (req, res) => {
 	const password = req.body.word;
 
 	const sqlInsert =
-		"SELECT * FROM `users` where `username`=? AND `password`=?";
+		"SELECT COUNT(*) FROM `users` where `username`=? AND `password`=?";
 	db.query(sqlInsert, [username, password], (err, result) => {
 		if (err) {
 			console.log(err);
