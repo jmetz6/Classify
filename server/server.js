@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 const mysql = require("mysql");
 const config = {
+	connectionLimit: 10,
 	host: "classmysql.engr.oregonstate.edu",
 	user: "cs340_hiewa",
 	password: "7219",
@@ -18,13 +19,27 @@ const config = {
 
 const db = mysql.createPool(config);
 
+console.log("Testing Connection");
+db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
+	if (error) throw error;
+	if(results[0].solution == 2) {
+		console.log("Connection GOOD!");
+	}
+	else {
+		console.log("Connection BAD!");
+	}
+});
+
+// const db = mysql.createConnection(config);
 // app.get("/", (req, res) => {
 // 	db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
 // 		if (error) throw error;
 // 		console.log("The solution is: ", results);
 // 	});
 // });
+
 app.use(cors());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/api/signup", (req, res) => {
@@ -32,11 +47,12 @@ app.post("/api/signup", (req, res) => {
 	const password = req.body.word;
 	const sqlInsert =
 		"INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
-	// debugger;
-	console.log(username);
-	console.log(password);
 	db.query(sqlInsert, [username, password], (err, result) => {
-		// console.log(err);
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
 	});
 });
 
