@@ -27,8 +27,8 @@ export default class Admin extends Component {
 				alert("Error retrieving users");
 			} else {
 				data = result.data;
-				data.forEach((s) => {
-					s.actions = ["Username", "Playlists", "Actions"];
+				data.forEach((i) => {
+					i.actions = ["Username", "Playlists", "Actions"];
 				});
 				this.setState({ data });
 			}
