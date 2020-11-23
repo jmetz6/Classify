@@ -65,7 +65,7 @@ app.post("/api/login", (req, res) => {
 	});
 });
 
-app.get("/api/songs", (req, res) => {
+app.get("/songs", (req, res) => {
 	const sql = "SELECT * FROM `songs`";
 	pool.query(sql, [], (err, result) => {
 		if (err) {
