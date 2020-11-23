@@ -16,9 +16,10 @@ export default function Login() {
 		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
-			// if (result.data.Status == "Invalid") alert("Invalid User");
-			// else
-			alert("successful login");
+			if (!result.data.length) 
+				alert("Invalid User");
+			else
+				alert("successful login");
 		});
 	};
 	return (
