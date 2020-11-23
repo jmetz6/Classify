@@ -31,7 +31,9 @@ function Navbar() {
 				<div className="navbar-container">
 					<Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
 						<div className="flex-no-wrap">
-							<span>🎼</span>
+							<span role="img" aria-label="chord">
+								🎼
+							</span>
 							<span>Classify</span>
 						</div>
 						{/* <img src="./public/logo.png" alt="Classify Logo"/> */}
@@ -60,13 +62,17 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								<span>🔍</span>
+								<span role="img" aria-label="magnifying-glass">
+									🔍
+								</span>
 								<span>Search</span>
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/songs" className="nav-links" onClick={closeMobileMenu}>
-								<span>🎧</span>
+								<span role="img" aria-label="headphone">
+									🎧
+								</span>
 								<span>Songs</span>
 							</Link>
 						</li>
@@ -76,7 +82,9 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								<span>🎸</span>
+								<span role="img" aria-label="guitar">
+									🎸
+								</span>
 								<span>Artists</span>
 							</Link>
 						</li>
@@ -86,14 +94,18 @@ function Navbar() {
 								className="nav-links"
 								onClick={closeMobileMenu}
 							>
-								<span>🎶</span>
+								<span role="img" aria-label="music">
+									🎶
+								</span>
 								<span>Playlists</span>
 							</Link>
 						</li>
 
 						<li className="nav-item">
 							<Link to="/admin" className="nav-links" onClick={closeMobileMenu}>
-								<span>🤵</span>
+								<span role="img" aria-label="guy">
+									🤵
+								</span>
 								<span>Admin</span>
 							</Link>
 						</li>
