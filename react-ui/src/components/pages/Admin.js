@@ -7,7 +7,7 @@ export default class Admin extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			cols: ["Username", "Playlists", "Actions"],
+			cols: ["Username", "Password", "Actions"],
 			data: [],
 		};
 	}
