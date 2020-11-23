@@ -46,9 +46,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post("/api/signup", (req, res) => {
 	const username = req.body.name;
 	const password = req.body.word;
-	const sqlInsert =
+	const sql =
 		"INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
-	db.query(sqlInsert, [username, password], (err, result) => {
+	db.query(sql, [username, password], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -61,9 +61,20 @@ app.post("/api/login", (req, res) => {
 	const username = req.body.name;
 	const password = req.body.word;
 
-	const sqlInsert =
+	const sql =
 		"SELECT COUNT(*) FROM `users` where `username`=? AND `password`=?";
-	db.query(sqlInsert, [username, password], (err, result) => {
+	db.query(sql, [username, password], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/songs", (req, res) => {
+	const sql = "SELECT * FROM `songs`";
+	db.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
