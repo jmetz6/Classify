@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 const app = express();
@@ -22,6 +24,21 @@ const db = mysql.createPool(config);
 // 		console.log("The solution is: ", results);
 // 	});
 // });
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post("/api/signup", (req, res) => {
+	const username = req.body.name;
+	const password = req.body.word;
+	const sqlInsert =
+		"INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
+	// debugger;
+	console.log(username);
+	console.log(password);
+	db.query(sqlInsert, [username, password], (err, result) => {
+		// console.log(err);
+	});
+});
 
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
