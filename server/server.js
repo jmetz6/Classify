@@ -10,23 +10,23 @@ const PORT = process.env.PORT || 5000;
 
 const mysql = require("mysql");
 const config = {
-
 	host: "klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
 	user: "e89vriolfxzqk4tm",
 	password: "d5gtcm57uommxadt",
 	database: "hlsijmpn5yktan07",
-
 };
 
 const db = mysql.createPool(config);
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 console.log("Testing Connection");
 db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
 	if (error) throw Error("Could not connect to DB!");
-	if(results[0].solution == 2) {
+	if (results[0].solution == 2) {
 		console.log("Connection GOOD!");
-	}
-	else {
+	} else {
 		console.log("Connection BAD!");
 	}
 });
@@ -39,15 +39,10 @@ db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
 });
 // });
 
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.post("/api/signup", (req, res) => {
 	const username = req.body.name;
 	const password = req.body.word;
-	const sql =
-		"INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
+	const sql = "INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
 	db.query(sql, [username, password], (err, result) => {
 		if (err) {
 			console.log(err);
@@ -106,7 +101,8 @@ app.post("/api/playlists", (req, res) => {
 });
 
 app.post("/api/playlist", (req, res) => {
-	const sql = "SELECT * FROM `playlist_song_association` WHERE `playlistID`=(SELECT `id` FROM `playlists` WHERE `name`=:playlistNameInput)";
+	const sql =
+		"SELECT * FROM `playlist_song_association` WHERE `playlistID`=(SELECT `id` FROM `playlists` WHERE `name`=:playlistNameInput)";
 	db.query(sql, [], (err, result) => {
 		if (err) {
 			console.log(err);
