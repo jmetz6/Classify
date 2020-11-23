@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 import "../../App.css";
 
 export default function Login() {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const apiUrl = "http://localhost:5000/api/login";
+	const Authentication = (e) => {
+		e.preventDefault();
+		// debugger;
+		const data1 = {
+			name: username,
+			word: password,
+		};
+		Axios.post(apiUrl, data1).then((result) => {
+			// debugger;
+			console.log(result);
+			// if (result.data.Status == "Invalid") alert("Invalid User");
+			// else
+			alert("successful login");
+		});
+	};
 	return (
 		<div className="wrapper fadeInDown">
 			<div id="formContent">
@@ -17,6 +36,9 @@ export default function Login() {
 					<input
 						type="text"
 						id="login"
+						onChange={(e) => {
+							setUsername(e.target.value);
+						}}
 						className="fadeIn second"
 						name="login"
 						placeholder="username"
@@ -24,11 +46,19 @@ export default function Login() {
 					<input
 						type="text"
 						id="password"
+						onChange={(e) => {
+							setPassword(e.target.value);
+						}}
 						className="fadeIn third"
 						name="login"
 						placeholder="password"
 					/>
-					<input type="submit" className="fadeIn fourth" value="Log In" />
+					<input
+						type="submit"
+						onClick={Authentication}
+						className="fadeIn fourth"
+						value="Log In"
+					/>
 				</form>
 
 				{/* <!-- Remind Passowrd --> */}
