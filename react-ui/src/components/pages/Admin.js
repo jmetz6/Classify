@@ -8,7 +8,7 @@ export default class Admin extends Component {
 		super(props);
 		this.state = {
 			cols: ["Username", "Playlists", "Actions"],
-			data: ["edit", "remove"],
+			data: [],
 		};
 	}
 
@@ -27,8 +27,8 @@ export default class Admin extends Component {
 				alert("Error retrieving users");
 			} else {
 				data = result.data;
-				data.forEach((i) => {
-					i.actions = ["Username", "Playlists", "Actions"];
+				data.forEach((s) => {
+					s.actions = ["edit", "remove"];
 				});
 				this.setState({ data });
 			}
