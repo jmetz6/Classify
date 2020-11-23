@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import "../../App.css";
 
 export default function SignUp(props) {
@@ -17,7 +17,7 @@ export default function SignUp(props) {
 			name: username,
 			word: password,
 		};
-		axios.post(apiUrl, data1).then((result) => {
+		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
 			// if (result.data.Status == "Invalid") alert("Invalid User");
@@ -41,7 +41,7 @@ export default function SignUp(props) {
 				</div>
 
 				{/* <!-- Login Form --> */}
-				<form onSubmit={Registration} className="user">
+				<form>
 					<input
 						type="text"
 						name="Username"
