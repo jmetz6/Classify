@@ -21,7 +21,7 @@ const db = mysql.createPool(config);
 
 console.log("Testing Connection");
 db.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
-	if (error) throw error;
+	if (error) throw Error("Could not connect to DB!");
 	if(results[0].solution == 2) {
 		console.log("Connection GOOD!");
 	}
