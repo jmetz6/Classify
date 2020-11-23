@@ -5,11 +5,11 @@ import Table from "../Table";
 
 export default class Songs extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
-			cols:  ["Name", "Actions"],
-			data: []
-		}
+			cols: ["Name", "Actions"],
+			data: [],
+		};
 	}
 
 	componentDidMount() {
@@ -20,33 +20,31 @@ export default class Songs extends Component {
 			console.log(result);
 			if (!result.data.length) {
 				alert("Error retrieving songs");
-			}
-			else {
+			} else {
 				data = result.data;
+
 				data.forEach(i => {
 					i.actions = ["add", "edit", "remove"];
 				});
-				this.setState({data});
+				this.setState({ data });
 			}
 		});
 	}
 
-	render () {
-		return(
+	render() {
+		return (
 			<div className="songs flex-page">
 				<div>
 					<button className="btn btn-primary">Add new song</button>
 				</div>
-				
+
 				<Table
 					title="Songs"
 					cols={this.state.cols}
 					data={this.state.data}
 					property="song"
-				>
-				</Table>
-
+				></Table>
 			</div>
-		)
+		);
 	}
 }
