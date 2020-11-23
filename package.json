@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "cd server && node server.js",
-    "build": "cd react-ui/ && npm install && npm run build",
+    "build": "npm install && cd react-ui/ && npm install && npm run build",
     "dev": "cd react-ui/ && npm run build",
     "dev-node": "cd server && nodemon server.js",
     "dev-react": "cd react-ui/ && npm start"
