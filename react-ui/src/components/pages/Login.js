@@ -16,10 +16,18 @@ export default function Login() {
 		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
-			if (!result.data.length) 
+			if (!result.data.length) {
 				alert("Invalid User");
-			else
-				alert("successful login");
+			}
+			else {
+				if(result.data[0]["COUNT(*)"] == 1) {
+					alert("successful login");
+				}
+				else {
+					alert("Invalid User");
+			
+				}
+			}
 		});
 	};
 	return (
