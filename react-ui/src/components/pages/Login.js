@@ -18,14 +18,11 @@ export default function Login() {
 			console.log(result);
 			if (!result.data.length) {
 				alert("Invalid User");
-			}
-			else {
-				if(result.data[0]["COUNT(*)"] == 1) {
+			} else {
+				if (result.data[0]["COUNT(*)"] == 1) {
 					alert("successful login");
-				}
-				else {
+				} else {
 					alert("Invalid User");
-			
 				}
 			}
 		});
@@ -53,7 +50,7 @@ export default function Login() {
 						placeholder="username"
 					/>
 					<input
-						type="text"
+						type="password"
 						id="password"
 						onChange={(e) => {
 							setPassword(e.target.value);
