@@ -8,7 +8,7 @@ export default class Admin extends Component {
 		super(props);
 		this.state = {
 			cols: ["Username", "Playlists", "Actions"],
-			data: ["edit", "remove"],
+			data: [],
 		};
 	}
 
@@ -28,7 +28,7 @@ export default class Admin extends Component {
 			} else {
 				data = result.data;
 				data.forEach((s) => {
-					s.actions = ["Username", "Playlists", "Actions"];
+					s.actions = ["edit", "remove"];
 				});
 				this.setState({ data });
 			}
