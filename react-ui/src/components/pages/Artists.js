@@ -1,31 +1,51 @@
-import React from "react";
+import Axios from "axios";
+import React, { Component } from "react";
 import "../../App.css";
 import Table from "../Table";
 
-export default function Artist() {
-	
-	let cols = ["Name", "Actions"];
-    let data = [
-        { id: 1, name: "Ludwig van Beethoven", actions: ["edit", "remove"] },
-		{ id: 2, name: "Wolfgang Amadeus Mozart", actions: ["edit", "remove"] },
-		{ id: 3, name: "George Frideric Handel", actions: ["edit", "remove"] }
-    ]
+export default class Artsits extends Component {
 
-	return (
-		<div className="artist flex-page">
-			<div>
-				<button className="btn btn-primary">Add new artist</button>
+	constructor(props) {
+		super(props)
+		this.state = {
+			cols:  ["Name", "Actions"],
+			data: []
+		}
+	}
+
+	componentDidMount() {
+		let data = [];
+		const apiUrl = "http://localhost:5000/api/artists";
+		Axios.post(apiUrl).then((result) => {
+			console.log(result);
+			if (!result.data.length) {
+				alert("Error retrieving songs");
+			}
+			else {
+				data = result.data;
+				data.forEach(s => {
+					s.actions = ["edit", "remove"];
+				});
+				this.setState({data});
+			}
+		});
+	}
+
+	render () {
+		return(
+			<div className="artist flex-page">
+				<div>
+					<button className="btn btn-primary">Add new artist</button>
+				</div>
+				
+				<Table
+					title="Artists"
+					cols={this.state.cols}
+					data={this.state.data}
+					property="artist"
+				>
+				</Table>
 			</div>
-			
-			<Table
-				title="Artists"
-				cols={cols}
-				data={data}
-				property="artist"
-			>
-			</Table>
-
-		</div>
-	
-	)
+		)
+	}
 }
