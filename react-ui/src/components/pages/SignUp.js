@@ -20,10 +20,8 @@ export default function SignUp(props) {
 		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
-			if (result.data.errno) 
-				alert("Invalid User");
-			else
-				alert("successful signup");
+			if (result.data.errno) alert("Invalid User");
+			else alert("successful signup");
 		});
 	};
 	// const onChange = (e) => {
@@ -56,7 +54,7 @@ export default function SignUp(props) {
 						placeholder="username"
 					/>
 					<input
-						type="text"
+						type="password"
 						id="password"
 						name="Password"
 						// onChange={onChange}
