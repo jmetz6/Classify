@@ -1,4 +1,5 @@
 {
+  "homepage": "https://cs340-classify.herokuapp.com/",
   "name": "node",
   "version": "3.0.0",
   "description": "How to use create-react-app with a custom Node API on Heroku",
