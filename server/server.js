@@ -83,6 +83,50 @@ app.post("/api/songs", (req, res) => {
 	});
 });
 
+app.post("/api/artists", (req, res) => {
+	const sql = "SELECT * FROM `artists`";
+	db.query(sql, [], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/playlists", (req, res) => {
+	const sql = "SELECT * FROM `playlists`";
+	db.query(sql, [], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/playlist", (req, res) => {
+	const sql = "SELECT * FROM `playlist_song_association` WHERE `playlistID`=(SELECT `id` FROM `playlists` WHERE `name`=:playlistNameInput)";
+	db.query(sql, [], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/admin", (req, res) => {
+	const sql = "SELECT * FROM `users`";
+	db.query(sql, [], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
 	console.error(`Node cluster master ${process.pid} is running`);
