@@ -1,36 +1,27 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../../App.css";
+import { getArtists } from "../../services/artists.service";
 import Table from "../Table";
 
 export default function Artists(props) {
-	// this.state = {
-	// 	cols: ["Name", "Actions"],
-	// 	data: [],
-	// };
 
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		let data = [];
-		const apiUrl = "/api/artists";
-		Axios.post(apiUrl).then((result) => {
-			console.log(result);
-			if (!result.data.length) {
-				alert("Error retrieving artists");
-			} else {
-				data = result.data;
-				data.forEach((i) => {
-					i.actions = ["edit", "remove"];
-				});
-				setData(data);
-			}
-		});
-	}, []);
+		getArtists().then(
+			function (artists) {
+				setData(artists);
+			}, 
+			function (error) {
+				console.log("Failed to retrieve artist data");
+				console.error(error);
+			});
+	}, 
+	[]);
 
 	return (
-		<div className="artist flex-page">
+		<div className="artist flex-page flex-page-column">
 			<div>
 				<button className="btn btn-primary">Add new artist</button>
 			</div>
