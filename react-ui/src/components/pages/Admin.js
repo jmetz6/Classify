@@ -6,52 +6,39 @@ import { Modal } from "../Modal";
 
 import "../../App.css";
 
-// const SendForm = (form) => {
-// 	let tform = document.getElementById(form);
-// 	tform.submit();
-// 	let apiUrlForm = "/api/signup";
-// 	let url = window.location.href.split("?")[1];
-// 	let data = url.split("&");
-// 	let sendData = {
-// 		name: data[0].split("=")[1],
-// 		word: data[1].split("=")[1],
-// 	};
+let form = new Map();
 
-// 	Axios.post(apiUrlForm, sendData).then((result) => {
-// 		// debugger;
-// 		console.log(result);
-// 		if (result.data.errno) {
-// 			alert("Failure: Invalid User");
-// 		} else {
-// 			alert("Add user successful");
-// 		}
-// 	});
-// };
+const SendForm = () => {
+	//console.log("Called onSubmit!");
+	// form.forEach((value, key, map) => {
+	// 	console.log(key + " is " + value);
+	// });
+
+	let apiUrlForm = "/api/signup";
+
+	let sendData = {
+		name: form.get("username"),
+		word: form.get("password"),
+	};
+
+	Axios.post(apiUrlForm, sendData).then((result) => {
+		// debugger;
+		console.log(result);
+		if (result.data.errno) {
+			alert("Failure: Invalid User");
+		} else {
+			alert("Add user successful");
+		}
+	});
+};
+
+const onChange = (element, changes) => {
+	//stores the changes in vars
+	//console.log("Called onChange with " + changes);
+	form.set(element, changes);
+}
 
 export default function Admin(props) {
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = {
-	// 		cols: ["Username", "Password", "Actions"],
-	// 		data: [],
-	// 		render: ''
-	// 	};
-	// }
-
-	// handleClick(compName, e){
-	// 	if(this.state.render === compName) {
-	// 		this.setState({render: ''});
-	// 	}
-	// 	else {
-	//     	this.setState({render: compName});
-	// 	}
-	// }
-	// _renderSubComp(){
-	//     switch(this.state.render){
-	// 		case 'AdminForm': return <AdminForm />
-	// 		default: return;
-	// 	}
-	// }
 
 	const [show, setShow] = useState(false);
 
@@ -79,7 +66,7 @@ export default function Admin(props) {
 	return (
 		<>
 			{show ? (
-				<div onClick={closeModalHandler} className="back-drop"></div>
+				<div onClick={closeModalHandler} className="back-drop fadeIn first"></div>
 			) : null}
 			
 			<div>
@@ -90,10 +77,11 @@ export default function Admin(props) {
 						<button onClick={() => setShow(true)} className="btn btn-primary">
 							Add new user
 					</button>
-						{show ? (
-							<Modal show={show} close={closeModalHandler} />
-						) : null}
 					</div>
+
+					{show ? (
+							<Modal show={show} close={closeModalHandler} title="Add User"  inputs={ [ 'username', 'password' ] } selects={ [] } onChange={onChange} onSubmit={SendForm}/>
+						) : null}
 
 					<Table title="Users" cols={cols} data={data} property="user"></Table>
 				</div>
