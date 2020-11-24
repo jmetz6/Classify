@@ -28,7 +28,7 @@ DELETE FROM `playlists` WHERE `name`=:playlistNameInput;
 --add
 INSERT INTO `songs` (`name`) VALUES 
 (:songNameInput);
-userIDInput 
+
 
 INSERT INTO `artists` (`name`) VALUES 
 (:songArtistName);
