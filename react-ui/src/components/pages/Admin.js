@@ -19,7 +19,7 @@ export default class Admin extends Component {
 	// ]
 	componentDidMount() {
 		let data = [];
-		const apiUrl = "http://localhost:5000/api/admin";
+		const apiUrl = "/api/admin";
 		Axios.post(apiUrl).then((result) => {
 			// debugger;
 			console.log(result);

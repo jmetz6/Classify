@@ -5,7 +5,7 @@ import "../../App.css";
 export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const apiUrl = "http://localhost:5000/api/login";
+	const apiUrl = "/api/login";
 	const Authentication = (e) => {
 		e.preventDefault();
 		// debugger;

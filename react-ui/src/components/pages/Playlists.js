@@ -4,30 +4,28 @@ import "../../App.css";
 import Table from "../Table";
 
 export default class Playlists extends Component {
-
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
-			cols:  ["Name", "User", "Actions"],
-			data: []
-		}
+			cols: ["Name", "User", "Actions"],
+			data: [],
+		};
 	}
 
 	componentDidMount() {
 		let data = [];
-		const apiUrl = "http://localhost:5000/api/playlists";
+		const apiUrl = "/api/playlists";
 		Axios.post(apiUrl).then((result) => {
 			// debugger;
 			console.log(result);
 			if (!result.data.length) {
 				alert("Error retrieving playlists");
-			}
-			else {
+			} else {
 				data = result.data;
-				data.forEach(i => {
+				data.forEach((i) => {
 					i.actions = ["select", "edit", "remove"];
 				});
-				this.setState({data});
+				this.setState({ data });
 			}
 		});
 	}
@@ -45,6 +43,6 @@ export default class Playlists extends Component {
 					property="playlist"
 				></Table>
 			</div>
-		)
+		);
 	}
 }
