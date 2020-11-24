@@ -43,7 +43,7 @@ class Table extends Component {
                                                                             return <button className="btn btn-secondary" key={action + row.id}>Remove {this.props.property}</button>
                                                                         case "select":
                                                                             return (
-                                                                                <Link key={action + row.id} to={"/" + this.props.property}>
+                                                                                <Link key={action + row.id} to={`/${this.props.property}/${row.id}`}>
                                                                                     <button className="btn btn-primary">Select {this.props.property}</button>
                                                                                 </Link>
                                                                                 )

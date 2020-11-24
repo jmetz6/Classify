@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import "../../App.css";
 
 export default function Login() {
+	const history = useHistory();
+
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const apiUrl = "/api/login";
@@ -13,6 +16,7 @@ export default function Login() {
 			name: username,
 			word: password,
 		};
+
 		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
@@ -21,6 +25,8 @@ export default function Login() {
 			} else {
 				if (result.data[0]["COUNT(*)"] === 1) {
 					alert("successful login");
+					localStorage.setItem('user', data1.name);
+					history.push("/songs");
 				} else {
 					alert("Invalid User");
 				}

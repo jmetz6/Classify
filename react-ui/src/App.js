@@ -24,7 +24,7 @@ function App() {
 					<Route path="/login" component={Login} />
 					{/* <Route path="/account" component={Account} /> */}
 					<Route path="/playlists" component={Playlists} />
-					<Route path="/playlist" component={Playlist} />
+					<Route path="/playlist/:playlistId" component={Playlist} />
 					<Route path="/admin" component={Admin} />
 					<Route path="/search" component={Search} />
 					<Route path="/songs" component={Songs} />
