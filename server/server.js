@@ -17,7 +17,7 @@ const config = {
 	user: "e89vriolfxzqk4tm",
 	password: "d5gtcm57uommxadt",
 	database: "hlsijmpn5yktan07",
-	connectionLimit: 3,
+	connectionLimit: 1,
 	maxIdle: 1,
 	multipleStatements: true,
 };
