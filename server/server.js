@@ -19,6 +19,7 @@ const config = {
 	database: "hlsijmpn5yktan07",
 	connectionLimit: 10,
 	maxIdle: 1,
+	multipleStatements: true
 };
 
 const pool = mysql.createPool(config);
@@ -99,14 +100,18 @@ app.post("/api/playlists", (req, res) => {
 });
 
 app.post("/api/playlist", (req, res) => {
-	const sql =
-		"SELECT * FROM `playlist_song_association` WHERE `playlistID`=(SELECT `id` FROM `playlists` WHERE `name`=:playlistNameInput)";
-	pool.query(sql, [], (err, result) => {
+	let sql = "SELECT `name` from `playlists` where `id`=?; ";
+	sql += "SELECT songs.id, songs.name AS songName, artists.name AS artistName FROM `songs` INNER JOIN `playlist_song_associations` ON playlist_song_associations.songID=songs.id ";
+	sql += "INNER JOIN `song_artist_associations` ON song_artist_associations.songID=playlist_song_associations.songID "; 
+	sql += "INNER JOIN `artists` ON artists.id=song_artist_associations.artistID ";
+	sql += "WHERE playlist_song_associations.playlistID=?";
+
+	pool.query(sql, [ req.body.id, req.body.id ], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
 		}
-		res.send(result);
+		res.send(results);
 	});
 });
 
