@@ -29,7 +29,7 @@ export default function Song(props) {
 				setData(data);
 			}
 		});
-	});
+	}, []);
 
 	return (
 		<div className="songs flex-page">

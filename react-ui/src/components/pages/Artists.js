@@ -27,7 +27,7 @@ export default function Artists(props) {
 				setData(data);
 			}
 		});
-	});
+	}, []);
 
 	return (
 		<div className="artist flex-page">
