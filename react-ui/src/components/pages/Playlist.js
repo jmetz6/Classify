@@ -39,9 +39,6 @@ export default class Playlist extends Component {
 	render() {
 		return (
 			<div className="playlist flex-page">
-				<div>
-					<button className="btn btn-primary">Add new playlist</button>
-				</div>
 	
 				<Table
 					title={"Playlist: " + this.state.playlistName}

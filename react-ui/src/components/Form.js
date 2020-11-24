@@ -1,19 +1,7 @@
-import React, { useState } from "react";
-
-import axios from "axios";
+import React from "react";
 
 export const SignUpForm = ({ onClick }) => {
-	const [data, setdata] = useState({
-		Username: "",
-		Password: "",
-	});
-	const apiUrl = "http://localhost:5000/api";
 
-	const onChange = (e) => {
-		e.persist();
-		debugger;
-		setdata({ ...data, [e.target.name]: e.target.value });
-	};
 	return (
 		<div className="wrapper fadeInDown">
 			<div id="formContent">
@@ -46,3 +34,47 @@ export const SignUpForm = ({ onClick }) => {
 		</div>
 	);
 };
+
+export const InputForm = ({ onClick, title, inputs, selects }) => { 
+	return(
+		<div className="wrapper fadeInDown">
+			<div id="formContent">
+
+				<div className="fadeIn first">
+					<h2>{title}</h2>
+				</div>
+
+				<form id="input-form"> 
+					{
+						inputs.map((element, number) => {
+							return (
+								<input 
+									key={element + "_" + number}
+									type="text" 
+									id={element}
+									className="fadeIn second"
+									name={element}
+									placeholder={element}
+								/>	
+							)
+						})
+					}
+
+					{
+						selects.map((element, number) => {
+							return (
+								<select
+									key={element + "_" + number}
+								>
+										{element}
+								</select>
+							)
+						})
+					}
+
+					<input onClick={onClick({ form: "input-form"})} type="submit" className="fadeIn fourth" value="Submit" />
+				</form>
+			</div>
+		</div>
+	);
+}

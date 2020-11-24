@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import "../../App.css";
 
@@ -7,6 +8,7 @@ export default function SignUp(props) {
 	// 	Username: "",
 	// 	Password: "",
 	// });
+	const history = useHistory();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const apiUrl = "/api/signup";
@@ -20,8 +22,15 @@ export default function SignUp(props) {
 		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
-			if (result.data.errno) alert("Invalid User");
-			else alert("successful signup");
+			if (result.data.errno) { 
+				alert("Invalid User");
+			}
+			else {
+				alert("successful signup");
+				localStorage.setItem('user', data1.name);
+				history.push("/songs");
+			}
+
 		});
 	};
 	// const onChange = (e) => {

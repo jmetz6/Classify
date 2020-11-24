@@ -56,7 +56,7 @@ class Table extends Component {
                                                     );
                                                 }
                                                 else {
-                                                    return <span key={row[keyName] + "_" + row.id} className="table-body-cell">{row[keyName]}</span>
+                                                    return <span key={row[keyName] + "_" + row.id + "_" + i} className="table-body-cell">{row[keyName]}</span>
                                                 }
                                             }
                                             return null;
