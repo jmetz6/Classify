@@ -4,7 +4,6 @@ import "../../App.css";
 import Table from "../Table";
 
 export default class Playlist extends Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -39,7 +38,6 @@ export default class Playlist extends Component {
 	render() {
 		return (
 			<div className="playlist flex-page">
-	
 				<Table
 					title={"Playlist: " + this.state.playlistName}
 					cols={this.state.cols}
@@ -48,5 +46,5 @@ export default class Playlist extends Component {
 				></Table>
 			</div>
 		);
-	}	
+	}
 }

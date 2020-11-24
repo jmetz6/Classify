@@ -1,18 +1,18 @@
 import Axios from "axios";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Table from "../Table";
 
-export default class Artsits extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			cols: ["Name", "Actions"],
-			data: [],
-		};
-	}
+export default function Artists(props) {
+	// this.state = {
+	// 	cols: ["Name", "Actions"],
+	// 	data: [],
+	// };
 
-	componentDidMount() {
+	const [cols] = useState(["Name", "Actions"]);
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
 		let data = [];
 		const apiUrl = "/api/artists";
 		Axios.post(apiUrl).then((result) => {
@@ -24,25 +24,18 @@ export default class Artsits extends Component {
 				data.forEach((i) => {
 					i.actions = ["edit", "remove"];
 				});
-				this.setState({ data });
+				setData(data);
 			}
 		});
-	}
+	});
 
-	render() {
-		return (
-			<div className="artist flex-page">
-				<div>
-					<button className="btn btn-primary">Add new artist</button>
-				</div>
-
-				<Table
-					title="Artists"
-					cols={this.state.cols}
-					data={this.state.data}
-					property="artist"
-				></Table>
+	return (
+		<div className="artist flex-page">
+			<div>
+				<button className="btn btn-primary">Add new artist</button>
 			</div>
-		);
-	}
+
+			<Table title="Artists" cols={cols} data={data} property="artist"></Table>
+		</div>
+	);
 }

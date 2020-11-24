@@ -1,18 +1,18 @@
 import Axios from "axios";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Table from "../Table";
 
-export default class Songs extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			cols: ["Name", "Actions"],
-			data: [],
-		};
-	}
+export default function Song(props) {
+	// const [state, setState] = useState({
+	// 	cols: ["Name", "Actions"],
+	// 	data: [],
+	// });
 
-	componentDidMount() {
+	const [cols] = useState(["Name", "Actions"]);
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
 		let data = [];
 		const apiUrl = "/api/songs";
 		Axios.get(apiUrl).then((result) => {
@@ -26,25 +26,18 @@ export default class Songs extends Component {
 				data.forEach((i) => {
 					i.actions = ["add", "edit", "remove"];
 				});
-				this.setState({ data });
+				setData(data);
 			}
 		});
-	}
+	});
 
-	render() {
-		return (
-			<div className="songs flex-page">
-				<div>
-					<button className="btn btn-primary">Add new song</button>
-				</div>
-
-				<Table
-					title="Songs"
-					cols={this.state.cols}
-					data={this.state.data}
-					property="song"
-				></Table>
+	return (
+		<div className="songs flex-page">
+			<div>
+				<button className="btn btn-primary">Add new song</button>
 			</div>
-		);
-	}
+
+			<Table title="Songs" cols={cols} data={data} property="song"></Table>
+		</div>
+	);
 }
