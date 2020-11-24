@@ -9,7 +9,7 @@ export default function SignUp(props) {
 	// });
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const apiUrl = "http://localhost:5000/api/signup";
+	const apiUrl = "/api/signup";
 	const Registration = (e) => {
 		e.preventDefault();
 		// debugger;
