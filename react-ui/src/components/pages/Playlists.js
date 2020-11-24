@@ -28,7 +28,7 @@ export default function Playlists(props) {
 				setData(data);
 			}
 		});
-	});
+	}, []);
 
 	return (
 		<div className="playlists flex-page">
