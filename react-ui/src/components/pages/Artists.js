@@ -15,7 +15,7 @@ export default class Artsits extends Component {
 
 	componentDidMount() {
 		let data = [];
-		const apiUrl = "http://localhost:5000/api/artists";
+		const apiUrl = "/api/artists";
 		Axios.post(apiUrl).then((result) => {
 			console.log(result);
 			if (!result.data.length) {
