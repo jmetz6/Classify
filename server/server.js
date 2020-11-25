@@ -169,6 +169,27 @@ app.post("/api/admin", (req, res) => {
 	});
 });
 
+app.post("/api/searchAll", (req, res) => {
+	const searchText = req.body.searchTerm;
+	let sql = 
+		"SELECT songs.id, songs.name AS songName, artists.name AS artistName FROM `songs` ";
+	sql +=
+		"INNER JOIN `song_artist_associations` ON song_artist_associations.songID=songs.id ";
+	sql +=
+		"INNER JOIN `artists` ON artists.id=song_artist_associations.artistID ";
+	sql +=
+		"WHERE songs.name LIKE ? OR artists.name LIKE ?";
+
+	let searchTerm =  `%${searchText}%`;
+	pool.query(sql, [searchTerm, searchTerm], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
 	console.error(`Node cluster master ${process.pid} is running`);
