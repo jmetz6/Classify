@@ -1,7 +1,7 @@
 import Axios from "axios";
 import q from "q";
 
-export const getPlaylists = ({ id }) => {
+export const getPlaylist = ({ id }) => {
 	var deferred = q.defer();
 
 	let data = [];
@@ -20,7 +20,30 @@ export const getPlaylists = ({ id }) => {
 				i.actions = ["remove"];
 			});
 
-			deferred.resolve([data, playlistName]);
+			deferred.resolve({ results: data, playlistName: playlistName });
+		}
+	});
+
+	return deferred.promise;
+};
+
+export const getPlaylists = () => {
+	var deferred = q.defer();
+
+	let data;
+	const apiUrl = "/api/playlists";
+	Axios.post(apiUrl).then((result) => {
+		console.log(result);
+		if (!result.data.length) {
+			deferred.reject("Error retrieving songs");
+		} else {
+			data = result.data;
+		
+			data.forEach((i) => {
+				i.actions = [ "select", "edit", "remove" ];
+			});
+
+			deferred.resolve(data);
 		}
 	});
 

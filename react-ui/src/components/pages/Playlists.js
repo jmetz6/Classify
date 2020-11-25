@@ -1,7 +1,8 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../../App.css";
+import { getPlaylists } from "../../services/playlists.service";
 import Table from "../Table";
+
 
 export default function Playlists(props) {
 	// this.state = {
@@ -13,21 +14,14 @@ export default function Playlists(props) {
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		let data = [];
-		const apiUrl = "/api/playlists";
-		Axios.post(apiUrl).then((result) => {
-			// debugger;
-			console.log(result);
-			if (!result.data.length) {
-				alert("Error retrieving playlists");
-			} else {
-				data = result.data;
-				data.forEach((i) => {
-					i.actions = ["select", "edit", "remove"];
-				});
-				setData(data);
-			}
-		});
+		getPlaylists().then(
+			function(results) {
+				setData(results);
+			}, 
+			function(error) {
+				console.log("Error: Failed to retrieve playlists");
+				console.error(error);
+			})
 	}, []);
 
 	return (

@@ -12,7 +12,8 @@ export const getArtists = () => {
 		console.log(result);
 		if (!result.data.length) {
 			deferred.reject("error retrieving artists");
-		} else {
+		} 
+		else {
 			data = result.data;
 			data.forEach((i) => {
 				i.actions = ["edit", "remove"];
@@ -23,3 +24,20 @@ export const getArtists = () => {
 
 	return deferred.promise;
 };
+
+export const addArtist = (sendData) => {
+	var deferred = q.defer();
+
+	const apiUrl = "/api/addArtist";
+	Axios.post(apiUrl, sendData).then((result) => {
+		console.log(result);
+		if (result.data.errno) {
+			deferred.reject("error retrieving artists");
+		} 
+		else {
+			deferred.resolve("sucessful");
+		}
+	});
+
+	return deferred.promise;
+}

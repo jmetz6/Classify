@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
 import Table from "../Table";
 import { Modal } from "../Modal";
 import { getUsers, addUser } from "../../services/admin.service";
@@ -11,7 +10,6 @@ export default function Admin(props) {
 	const closeModalHandler = () => setShow(false);
 	const [cols] = useState(["Username", "Password", "Actions"]);
 	const [data, setData] = useState([]);
-	const [newUser, setNewUser] = useState([]);
 	let form = new Map();
 
 	const SendForm = () => {
@@ -70,8 +68,6 @@ export default function Admin(props) {
 			<div>
 				<div className="admin flex-page flex-page-column">
 					<div>
-						{/* <button className="btn btn-primary">Add new user</button> */}
-
 						<button onClick={() => setShow(true)} className="btn btn-primary">
 							Add new user
 						</button>
