@@ -1,74 +1,82 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import Axios from "axios";
 import Table from "../Table";
 import { Modal } from "../Modal";
-
+import { getUsers, addUser } from "../../services/admin.service";
 import "../../App.css";
 
-let form = new Map();
-
-const SendForm = () => {
-	//console.log("Called onSubmit!");
-	// form.forEach((value, key, map) => {
-	// 	console.log(key + " is " + value);
-	// });
-
-	let apiUrlForm = "/api/signup";
-
-	let sendData = {
-		name: form.get("username"),
-		word: form.get("password"),
-	};
-
-	Axios.post(apiUrlForm, sendData).then((result) => {
-		// debugger;
-		console.log(result);
-		if (result.data.errno) {
-			alert("Failure: Invalid User");
-		} else {
-			alert("Add user successful");
-		}
-	});
-};
-
-const onChange = (element, changes) => {
-	//stores the changes in vars
-	//console.log("Called onChange with " + changes);
-	form.set(element, changes);
-}
-
 export default function Admin(props) {
+	let form = new Map();
 
 	const [show, setShow] = useState(false);
-
 	const closeModalHandler = () => setShow(false);
 	const [cols] = useState(["Username", "Password", "Actions"]);
 	const [data, setData] = useState([]);
-	useEffect(() => {
-		let data = [];
-		const apiUrl = "/api/admin";
-		Axios.post(apiUrl).then((result) => {
+	const [newUser, setNewUser] = useState([]);
+
+	const SendForm = () => {
+		//console.log("Called onSubmit!");
+		// form.forEach((value, key, map) => {
+		// 	console.log(key + " is " + value);
+		// });
+
+		let sendData = {
+			username: form.get("username"),
+			password: form.get("password"),
+		};
+
+		let apiUrlForm = "/api/signup";
+		Axios.post(apiUrlForm, sendData).then((result) => {
 			// debugger;
 			console.log(result);
-			if (!result.data.length) {
-				alert("Error retrieving users");
+			if (result.data.errno) {
+				alert("Failure: Invalid User");
 			} else {
-				data = result.data;
-				data.forEach((s) => {
-					s.actions = ["edit", "remove"];
-				});
-				setData(data);
+				alert("Add user successful");
 			}
 		});
+
+		// addUser({
+		// 	username: form.get("username"),
+		// 	password: form.get("password"),
+		// }).then(
+		// 	// function (users) {
+		// 	// 	setNewUser(users);
+		// 	// },
+		// 	function (error) {
+		// 		console.log("Failed to retrieve artist data");
+		// 		console.error(error);
+		// 	}
+		// );
+	};
+
+	const onChange = (element, changes) => {
+		//stores the changes in vars
+		//console.log("Called onChange with " + changes);
+		form.set(element, changes);
+	};
+
+	useEffect(() => {
+		getUsers().then(
+			function (users) {
+				setData(users);
+			},
+			function (error) {
+				console.log("Failed to retrieve users data");
+				console.error(error);
+			}
+		);
 	}, []);
 
 	return (
 		<>
 			{show ? (
-				<div onClick={closeModalHandler} className="back-drop fadeIn first"></div>
+				<div
+					onClick={closeModalHandler}
+					className="back-drop fadeIn first"
+				></div>
 			) : null}
-			
+
 			<div>
 				<div className="admin flex-page flex-page-column">
 					<div>
@@ -76,12 +84,20 @@ export default function Admin(props) {
 
 						<button onClick={() => setShow(true)} className="btn btn-primary">
 							Add new user
-					</button>
+						</button>
 					</div>
 
 					{show ? (
-							<Modal show={show} close={closeModalHandler} title="Add User"  inputs={ [ 'username', 'password' ] } selects={ [] } onChange={onChange} onSubmit={SendForm}/>
-						) : null}
+						<Modal
+							show={show}
+							close={closeModalHandler}
+							title="Add User"
+							inputs={["username", "password"]}
+							selects={[]}
+							onChange={onChange}
+							onSubmit={SendForm}
+						/>
+					) : null}
 
 					<Table title="Users" cols={cols} data={data} property="user"></Table>
 				</div>
@@ -89,15 +105,3 @@ export default function Admin(props) {
 		</>
 	);
 }
-
-// class AdminForm extends React.Component {
-//     render() {
-//         return (
-// 			<div>
-// 				<InputForm onClick={SendForm} title="Add User" inputs={ [ 'username', 'password' ] } selects={ [] }>
-
-// 				</InputForm>
-// 			</div>
-// 		)
-//     }
-// }

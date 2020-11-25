@@ -39,8 +39,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/api/signup", (req, res) => {
-	const username = req.body.name;
-	const password = req.body.word;
+	const username = req.body.username;
+	const password = req.body.password;
 	const sql = "INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
 	pool.query(sql, [username, password], (err, result) => {
 		if (err) {
@@ -52,8 +52,8 @@ app.post("/api/signup", (req, res) => {
 });
 
 app.post("/api/login", (req, res) => {
-	const username = req.body.name;
-	const password = req.body.word;
+	const username = req.body.username;
+	const password = req.body.password;
 
 	const sql =
 		"SELECT COUNT(*) FROM `users` where `username`=? AND `password`=?";

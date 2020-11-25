@@ -16,21 +16,19 @@ export default function SignUp(props) {
 		e.preventDefault();
 		// debugger;
 		const data1 = {
-			name: username,
-			word: password,
+			username: username,
+			password: password,
 		};
 		Axios.post(apiUrl, data1).then((result) => {
 			// debugger;
 			console.log(result);
-			if (result.data.errno) { 
+			if (result.data.errno) {
 				alert("Invalid User");
-			}
-			else {
+			} else {
 				alert("successful signup");
-				localStorage.setItem('user', data1.name);
+				localStorage.setItem("user", data1.name);
 				history.push("/songs");
 			}
-
 		});
 	};
 	// const onChange = (e) => {

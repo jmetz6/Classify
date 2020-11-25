@@ -1,7 +1,7 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Table from "../Table";
+import { getPlaylists } from "../../services/playlists.service";
 
 export default function Playlist(props) {
 	// constructor(props) {
@@ -21,26 +21,18 @@ export default function Playlist(props) {
 	// const [playlistId, setPlaylistId] = useState();
 
 	useEffect(() => {
-		let data = [];
-		const apiUrl = "/api/playlist";
-		let id = props.match.params.playlistId;
-		Axios.post(apiUrl, { id: id }).then((result) => {
-			// debugger;
-			console.log(result);
-			if (!result.data.length) {
-				alert("Error retrieving songs");
-			} else {
-				data = result.data;
-				let playName = data[0][0].name; //the first query's first parameter of the data
+		const id = props.match.params.playlistId;
 
-				data = data[1];
-				data.forEach((i) => {
-					i.actions = ["remove"];
-				});
-				setPlaylistName(playName);
-				setData(data);
+		getPlaylists({ id: id }).then(
+			function (data) {
+				setData(data[0]);
+				setPlaylistName(data[1]);
+			},
+			function (error) {
+				console.log("Failed to retrieve song data");
+				console.error(error);
 			}
-		});
+		);
 	}, []);
 
 	return (

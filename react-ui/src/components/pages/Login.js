@@ -13,8 +13,8 @@ export default function Login() {
 		e.preventDefault();
 		// debugger;
 		const data1 = {
-			name: username,
-			word: password,
+			username: username,
+			password: password,
 		};
 
 		Axios.post(apiUrl, data1).then((result) => {
@@ -25,7 +25,7 @@ export default function Login() {
 			} else {
 				if (result.data[0]["COUNT(*)"] === 1) {
 					alert("successful login");
-					localStorage.setItem('user', data1.name);
+					localStorage.setItem("user", data1.username);
 					history.push("/songs");
 				} else {
 					alert("Invalid User");

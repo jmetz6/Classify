@@ -2,7 +2,15 @@ import React from "react";
 import "./Modal.css";
 import { InputForm } from "./Form";
 
-export const Modal = ({ show, close, title, inputs, selects, onChange, onSubmit }) => {
+export const Modal = ({
+	show,
+	close,
+	title,
+	inputs,
+	selects,
+	onChange,
+	onSubmit,
+}) => {
 	return (
 		<div
 			className="modal-wrapper fadeIn first"
@@ -19,14 +27,21 @@ export const Modal = ({ show, close, title, inputs, selects, onChange, onSubmit 
 			</div>
 			<div className="modal-content fadeIn third">
 				<div className="modal-body">
-					<InputForm onChange={onChange} onSubmit={onSubmit} close={close} inputs={inputs} selects={selects}></InputForm>
+					<InputForm
+						onChange={onChange}
+						onSubmit={onSubmit}
+						close={close}
+						inputs={inputs}
+						selects={selects}
+					></InputForm>
 				</div>
-				{!onSubmit ? 
+				{!onSubmit ? (
 					<div className="modal-footer fadeIn fourth">
 						<button onClick={close} className="btn-cancel">
 							Close
 						</button>
-					</div> : null }
+					</div>
+				) : null}
 			</div>
 		</div>
 	);

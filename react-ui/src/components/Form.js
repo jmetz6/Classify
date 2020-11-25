@@ -1,7 +1,6 @@
 import React from "react";
 
 export const SignUpForm = ({ onClick }) => {
-
 	return (
 		<div className="wrapper fadeInDown">
 			<div id="formContent">
@@ -35,39 +34,29 @@ export const SignUpForm = ({ onClick }) => {
 	);
 };
 
-export const InputForm = ({ onChange, onSubmit, close, inputs, selects }) => { 
-	return(
-		<form id="input-form"> 
-			{
-				inputs.map((element, number) => {
-					return (
-						<input 
-							key={element + "_" + number}
-							type="text" 
-							id={element}
-							name={element}
-							placeholder={element}
-							onChange={(e) => {
-								onChange(element, e.target.value);
-							}}
-						/>	
-					)
-				})
-			}
+export const InputForm = ({ onChange, onSubmit, close, inputs, selects }) => {
+	return (
+		<form id="input-form">
+			{inputs.map((element, number) => {
+				return (
+					<input
+						key={element + "_" + number}
+						type="text"
+						id={element}
+						name={element}
+						placeholder={element}
+						onChange={(e) => {
+							onChange(element, e.target.value);
+						}}
+					/>
+				);
+			})}
 
-			{
-				selects.map((element, number) => {
-					return (
-						<select
-							key={element + "_" + number}
-						>
-								{element}
-						</select>
-					)
-				})
-			}
+			{selects.map((element, number) => {
+				return <select key={element + "_" + number}>{element}</select>;
+			})}
 
 			<input onClick={onSubmit} type="submit" value="Submit" />
 		</form>
 	);
-}
+};

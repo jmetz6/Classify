@@ -1,34 +1,22 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Table from "../Table";
+import { getSongs } from "../../services/songs.service";
 
 export default function Song(props) {
-	// const [state, setState] = useState({
-	// 	cols: ["Name", "Actions"],
-	// 	data: [],
-	// });
-
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		let data = [];
-		const apiUrl = "/api/songs";
-		Axios.get(apiUrl).then((result) => {
-			// debugger;
-			console.log(result);
-			if (!result.data.length) {
-				alert("Error retrieving songs");
-			} else {
-				data = result.data;
-
-				data.forEach((i) => {
-					i.actions = ["add", "edit", "remove"];
-				});
-				setData(data);
+		getSongs().then(
+			function (songs) {
+				setData(songs);
+			},
+			function (error) {
+				console.log("Failed to retrieve song data");
+				console.error(error);
 			}
-		});
+		);
 	}, []);
 
 	return (

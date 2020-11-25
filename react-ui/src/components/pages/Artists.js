@@ -4,7 +4,6 @@ import { getArtists } from "../../services/artists.service";
 import Table from "../Table";
 
 export default function Artists(props) {
-
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
 
@@ -12,13 +11,13 @@ export default function Artists(props) {
 		getArtists().then(
 			function (artists) {
 				setData(artists);
-			}, 
+			},
 			function (error) {
 				console.log("Failed to retrieve artist data");
 				console.error(error);
-			});
-	}, 
-	[]);
+			}
+		);
+	}, []);
 
 	return (
 		<div className="artist flex-page flex-page-column">
