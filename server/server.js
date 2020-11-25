@@ -88,6 +88,18 @@ app.post("/api/artists", (req, res) => {
 	});
 });
 
+app.post("/api/addArtist", (req, res) => {
+	let name = req.body.name;
+	const sql = "INSERT INTO `artists` (`name`) VALUES (?)";
+	pool.query(sql, [ name ], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 app.post("/api/playlists", (req, res) => {
 	const sql = "SELECT * FROM `playlists`";
 	pool.query(sql, [], (err, result) => {
