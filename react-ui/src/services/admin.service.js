@@ -25,6 +25,18 @@ export const getUsers = () => {
 
 export const addUser = ({ username, password }) => {
 	var deferred = q.defer();
+	let apiUrlForm = "/api/signup";
+	Axios.post(apiUrlForm, { username: username, password: password }).then(
+		(result) => {
+			// debugger;
+			console.log(result);
+			if (result.data.errno) {
+				deferred.result("Failure: Invalid User");
+			} else {
+				deferred.result("Add user successful");
+			}
+		}
+	);
 
 	return deferred.promise;
 };
