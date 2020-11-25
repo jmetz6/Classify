@@ -23,6 +23,26 @@ export const getUsers = () => {
 	return deferred.promise;
 };
 
+export const getUserByName = ({ username }) => {
+	var deferred = q.defer();
+
+	const apiUrl = "/api/getUserByName";
+	Axios.post(apiUrl, { username: username }).then(
+		function(result) {
+			console.log(result);
+			if (!result.length) {
+				deferred.reject("Error retrieving users");
+			} else {
+				deferred.resolve(result);
+			}
+		},
+		function(error) {
+			deferred.reject(error);
+		}
+	);
+	return deferred.promise;
+}
+
 export const addUser = ({ username, password }) => {
 	var deferred = q.defer();
 	let apiUrlForm = "/api/signup";
