@@ -4,8 +4,8 @@ Source: https://wisdmlabs.com/blog/responsive-tables-using-css-div-tag/
 */
 
 #resp-table {
-    display: table;
-    width: 100%;
+	display: table;
+	width: 100%;
 	border: 1px solid black;
 }
 
@@ -18,7 +18,7 @@ Source: https://wisdmlabs.com/blog/responsive-tables-using-css-div-tag/
 
 #resp-table-header {
 	display: table-header-group;
-	background-color: black;
+	background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
 	font-weight: bold;
 	font-size: 25px;
 	color: white;
@@ -32,11 +32,11 @@ Source: https://wisdmlabs.com/blog/responsive-tables-using-css-div-tag/
 }
 
 .resp-table-body {
-    display: table-row-group;
+	display: table-row-group;
 }
 
 .resp-table-row {
-    display: table-row;
+	display: table-row;
 }
 
 .table-body-cell {
@@ -45,17 +45,18 @@ Source: https://wisdmlabs.com/blog/responsive-tables-using-css-div-tag/
 
 #resp-table-footer {
 	display: table-footer-group;
-	background-color: black;
+	background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
 	font-weight: bold;
 	font-size: 25px;
 	color: rgba(255, 255, 255, 0.45);
 }
 
-.table-footer-cell{
+.table-footer-cell {
 	display: table-cell;
 	padding: 10px;
 	text-align: justify;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid
+		linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
 }
 
 /*
