@@ -56,11 +56,11 @@ export const InputForm = ({ onChange, onSubmit, close, inputs, selects, selectOp
 			{selects.map((element, number) => {
 				return (
 					<select key={element + "_" + number} name={element}>
-						{selectOptions[number].map((option, optionIndex) => {
+						{selectOptions ? selectOptions[number].map((option, optionIndex) => {
 							return (
-								<option key={option + "_" + number + "_" + optionIndex} value={option}>{option}</option>
+								<option key={option.name + "_" + number + "_" + optionIndex} value={option.id}>{option.name}</option>
 								)	
-						})}
+						}) : null}
 					</select>
 				);
 			})}

@@ -1,15 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useAsync } from "react";
 import "../../App.css";
 import Table from "../Table";
 import { getSongs } from "../../services/songs.service";
 import { getArtists } from "../../services/artists.service";
 import { Modal } from "../Modal";
+import q from "q";
 
-export default function Song(props) {
+export default function Songs(props) {
+	const getArtistsQuery = () => {
+		let deferred = q.defer();
+		getArtists().then(
+			function (results) {
+				deferred.resolve(results);
+			},
+			function (error) {
+				console.log("Error: Failed to retrieve artist data");
+				deferred.reject(error);
+			}
+		);
+		return deferred.promise;
+	}
+
+	// const { artists, error, isLoading } = useAsync({ promiseFn: getArtistsQuery })
+	// if (isLoading) return "Loading..."
+	// if (error) return `Something went wrong: ${error.message}`
+	// if (artists)
+
+
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
-	const [artists, setArtists] = useState([]);
-
 	const closeModalHandler = () => setShow(false);
 	const [show, setShow] = useState(false);
 
@@ -27,19 +46,7 @@ export default function Song(props) {
 		);
 	}
 
-	const getArtistsQuery = () => {
-		getArtists().then(
-			function (results) {
-				setArtists(results);
-				console.log(results);
-				console.log(artists);
-			},
-			function (error) {
-				console.log("Error: Failed to retrieve artist data");
-				console.error(error);
-			}
-		);
-	}
+
 
 	const SendForm = () => {
 		let sendData = {
@@ -75,7 +82,7 @@ export default function Song(props) {
 
 			<div className="songs flex-page flex-page-column">
 				<div>
-					<button disabled={true} onClick={() => setShow(true)} className="btn btn-primary">
+					<button onClick={() => setShow(true)} className="btn btn-primary">
 						Add new song
 					</button>
 				</div>
@@ -87,7 +94,7 @@ export default function Song(props) {
 						title="Add Song"
 						inputs={["name"]}
 						selects={["artists"]}
-						selectOptions={artists}
+						selectOptions={[]}
 						onChange={onChange}
 						onSubmit={SendForm}
 					/>
