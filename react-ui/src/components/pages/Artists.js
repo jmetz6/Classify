@@ -21,7 +21,7 @@ export default function Artists(props) {
 				console.error(error);
 			}
 		);
-	}
+	};
 
 	let form = new Map();
 
@@ -32,10 +32,10 @@ export default function Artists(props) {
 		console.log(sendData);
 
 		addArtist(sendData).then(
-			function(result) {
+			function (result) {
 				console.log(result);
-			}, 
-			function(error) {
+			},
+			function (error) {
 				console.error(error);
 			}
 		);
@@ -71,13 +71,17 @@ export default function Artists(props) {
 						close={closeModalHandler}
 						title="Add Artist"
 						inputs={["name"]}
-						selects={[]}
 						onChange={onChange}
 						onSubmit={SendForm}
 					/>
 				) : null}
 
-				<Table title="Artists" cols={cols} data={data} property="artist"></Table>
+				<Table
+					title="Artists"
+					cols={cols}
+					data={data}
+					property="artist"
+				></Table>
 			</div>
 		</>
 	);

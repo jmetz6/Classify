@@ -10,6 +10,7 @@ export const Modal = ({
 	selects,
 	onChange,
 	onSubmit,
+	list,
 }) => {
 	return (
 		<div
@@ -32,6 +33,8 @@ export const Modal = ({
 						onSubmit={onSubmit}
 						close={close}
 						inputs={inputs}
+						list={list}
+						options={list}
 						selects={selects}
 					></InputForm>
 				</div>
