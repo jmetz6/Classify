@@ -10,7 +10,7 @@ export const getUsers = () => {
 		// debugger;
 		console.log(result);
 		if (!result.data.length) {
-			deferred.result("Error retrieving users");
+			deferred.reject("Error retrieving users");
 		} else {
 			data = result.data;
 			data.forEach((s) => {
@@ -30,10 +30,11 @@ export const getUserByName = ({ username }) => {
 	Axios.post(apiUrl, { username }).then(
 		result => {
 			console.log(result);
-			if (!result.length) {
+			if (!result.data.length) {
 				deferred.reject("Error retrieving users");
-			} else {
-				deferred.resolve(result);
+			} 
+			else {
+				deferred.resolve(result.data);
 			}
 		}
 	);
@@ -48,9 +49,9 @@ export const addUser = ({ username, password }) => {
 			// debugger;
 			console.log(result);
 			if (result.data.errno) {
-				deferred.result("Failure: Invalid User");
+				deferred.reject("Failure: Invalid User");
 			} else {
-				deferred.result("Add user successful");
+				deferred.resolve("Add user successful");
 			}
 		}
 	);

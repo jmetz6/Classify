@@ -53,14 +53,14 @@ app.post("/api/signup", (req, res) => {
 
 app.post("/api/getUserByName", (req, res) => {
 	let username = req.body.username;
-	console.log("username is " + username);
+	//console.log("username is " + username);
 	const sql = "SELECT * FROM `users` where `username`=?";
 	pool.query(sql, [username], (err, result) => {
 		if (err) {
-			console.log(err);
+			//console.log(err);
 			res.send(err);
 		}
-		console.log(result);
+		//console.log(result);
 		res.send(result);
 	});
 });
@@ -115,8 +115,21 @@ app.post("/api/addArtist", (req, res) => {
 });
 
 app.post("/api/playlists", (req, res) => {
-	const sql = "SELECT * FROM `playlists`";
+	const sql = "SELECT playlists.id, playlists.name, users.username FROM `playlists` INNER JOIN `users` on users.id=playlists.user";
 	pool.query(sql, [], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/addPlaylist", (req, res) => {
+	let id = req.body.id;
+	let name = req.body.name;
+	const sql = "INSERT INTO `playlists` (`name`, `user`) VALUES (?, ?)";
+	pool.query(sql, [ name, id ], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -133,7 +146,8 @@ app.post("/api/playlist", (req, res) => {
 		"INNER JOIN `song_artist_associations` ON song_artist_associations.songID=playlist_song_associations.songID ";
 	sql +=
 		"INNER JOIN `artists` ON artists.id=song_artist_associations.artistID ";
-	sql += "WHERE playlist_song_associations.playlistID=?";
+	sql += 
+		"WHERE playlist_song_associations.playlistID=?";
 
 	pool.query(sql, [req.body.id, req.body.id], (err, results) => {
 		if (err) {

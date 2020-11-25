@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 
 export const SignUpForm = ({ onClick }) => {
 	return (
@@ -36,7 +37,7 @@ export const SignUpForm = ({ onClick }) => {
 
 export const InputForm = ({ onChange, onSubmit, close, inputs, selects }) => {
 	return (
-		<form id="input-form">
+		<div id="input-form">
 			{inputs.map((element, number) => {
 				return (
 					<input
@@ -56,7 +57,7 @@ export const InputForm = ({ onChange, onSubmit, close, inputs, selects }) => {
 				return <select key={element + "_" + number}>{element}</select>;
 			})}
 
-			<input onClick={onSubmit} type="submit" value="Submit" />
-		</form>
+			<button onClick={() => { onSubmit(); close();}} className="btn btn-primary">Submit</button>
+		</div>
 	);
 };
