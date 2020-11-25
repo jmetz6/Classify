@@ -27,17 +27,14 @@ export const getUserByName = ({ username }) => {
 	var deferred = q.defer();
 
 	const apiUrl = "/api/getUserByName";
-	Axios.post(apiUrl, { username: username }).then(
-		function(result) {
+	Axios.post(apiUrl, { username }).then(
+		result => {
 			console.log(result);
 			if (!result.length) {
 				deferred.reject("Error retrieving users");
 			} else {
 				deferred.resolve(result);
 			}
-		},
-		function(error) {
-			deferred.reject(error);
 		}
 	);
 	return deferred.promise;
