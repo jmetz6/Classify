@@ -35,7 +35,7 @@ export const getPlaylists = () => {
 	Axios.post(apiUrl).then((result) => {
 		console.log(result);
 		if (!result.data.length) {
-			deferred.reject("Error retrieving songs");
+			deferred.reject("Error retrieving playlists");
 		} else {
 			data = result.data;
 		
@@ -49,3 +49,20 @@ export const getPlaylists = () => {
 
 	return deferred.promise;
 };
+
+export const addPlaylist = ({ name, id }) => {
+	var deferred = q.defer(); 
+
+	const apiUrl = "/api/addPlaylist";
+	Axios.post(apiUrl, {name, id}).then((result) => {
+		console.log(result);
+		if (result.data.errno) {
+			deferred.reject("Error retrieving playlist");
+		} 
+		else {
+			deferred.resolve(result);
+		}
+	});
+
+	return deferred.promise;
+}

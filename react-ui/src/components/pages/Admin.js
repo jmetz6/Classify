@@ -12,12 +12,19 @@ export default function Admin(props) {
 	const [data, setData] = useState([]);
 	let form = new Map();
 
-	const SendForm = () => {
-		//console.log("Called onSubmit!");
-		// form.forEach((value, key, map) => {
-		// 	console.log(key + " is " + value);
-		// });
+	const getUsersQuery = () => {
+		getUsers().then(
+			function (users) {
+				setData(users);
+			},
+			function (error) {
+				console.log("Failed to retrieve users data");
+				console.error(error);
+			}
+		);
+	}
 
+	const SendForm = () => {
 		let sendData = {
 			username: form.get("username"),
 			password: form.get("password"),
@@ -27,6 +34,7 @@ export default function Admin(props) {
 		addUser(sendData).then(
 			function (results) {
 				console.log(results)
+				getUsersQuery();	
 			},
 			function (error) {
 				console.log("Failed to retrieve artist data");
@@ -42,15 +50,7 @@ export default function Admin(props) {
 	};
 
 	useEffect(() => {
-		getUsers().then(
-			function (users) {
-				setData(users);
-			},
-			function (error) {
-				console.log("Failed to retrieve users data");
-				console.error(error);
-			}
-		);
+		getUsersQuery();
 	}, []);
 
 	return (
