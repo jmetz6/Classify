@@ -6,13 +6,13 @@ import { getUsers, addUser } from "../../services/admin.service";
 import "../../App.css";
 
 export default function Admin(props) {
-	let form = new Map();
-
 	const [show, setShow] = useState(false);
+
 	const closeModalHandler = () => setShow(false);
 	const [cols] = useState(["Username", "Password", "Actions"]);
 	const [data, setData] = useState([]);
 	const [newUser, setNewUser] = useState([]);
+	let form = new Map();
 
 	const SendForm = () => {
 		//console.log("Called onSubmit!");
@@ -24,30 +24,20 @@ export default function Admin(props) {
 			username: form.get("username"),
 			password: form.get("password"),
 		};
+		console.log(sendData);
 
-		let apiUrlForm = "/api/signup";
-		Axios.post(apiUrlForm, sendData).then((result) => {
-			// debugger;
-			console.log(result);
-			if (result.data.errno) {
-				alert("Failure: Invalid User");
-			} else {
-				alert("Add user successful");
+		addUser({
+			username: form.get("username"),
+			password: form.get("password"),
+		}).then(
+			// function (users) {
+			// 	setNewUser(users);
+			// },
+			function (error) {
+				console.log("Failed to retrieve artist data");
+				console.error(error);
 			}
-		});
-
-		// addUser({
-		// 	username: form.get("username"),
-		// 	password: form.get("password"),
-		// }).then(
-		// 	// function (users) {
-		// 	// 	setNewUser(users);
-		// 	// },
-		// 	function (error) {
-		// 		console.log("Failed to retrieve artist data");
-		// 		console.error(error);
-		// 	}
-		// );
+		);
 	};
 
 	const onChange = (element, changes) => {
