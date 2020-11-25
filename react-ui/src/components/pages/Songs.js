@@ -7,30 +7,16 @@ import { Modal } from "../Modal";
 import q from "q";
 
 export default function Songs(props) {
-	const getArtistsQuery = () => {
-		let deferred = q.defer();
-		getArtists().then(
-			function (results) {
-				deferred.resolve(results);
-			},
-			function (error) {
-				console.log("Error: Failed to retrieve artist data");
-				deferred.reject(error);
-			}
-		);
-		return deferred.promise;
-	}
-
 	// const { artists, error, isLoading } = useAsync({ promiseFn: getArtistsQuery })
 	// if (isLoading) return "Loading..."
 	// if (error) return `Something went wrong: ${error.message}`
 	// if (artists)
 
-
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
 	const closeModalHandler = () => setShow(false);
 	const [show, setShow] = useState(false);
+	const [artists, setArtists] = useState([]);
 
 	let form = new Map();
 
@@ -44,9 +30,7 @@ export default function Songs(props) {
 				console.error(error);
 			}
 		);
-	}
-
-
+	};
 
 	const SendForm = () => {
 		let sendData = {
@@ -54,7 +38,6 @@ export default function Songs(props) {
 			password: form.get("password"),
 		};
 		console.log(sendData);
-
 	};
 
 	const onChange = (element, changes) => {
@@ -64,7 +47,17 @@ export default function Songs(props) {
 	};
 
 	useEffect(() => {
-		getArtistsQuery();
+		// let deferred = q.defer();
+		getArtists().then(
+			function (results) {
+				setArtists(results);
+			},
+			function (error) {
+				console.log("Error: Failed to retrieve artist data");
+				console.log(error);
+			}
+		);
+		// return deferred.promise;
 	}, []);
 
 	useEffect(() => {
@@ -93,10 +86,12 @@ export default function Songs(props) {
 						close={closeModalHandler}
 						title="Add Song"
 						inputs={["name"]}
-						selects={["artists"]}
+						selects={[artists]}
 						selectOptions={[]}
 						onChange={onChange}
 						onSubmit={SendForm}
+						list={artists}
+						options={artists}
 					/>
 				) : null}
 

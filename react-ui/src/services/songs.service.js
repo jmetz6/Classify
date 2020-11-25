@@ -24,3 +24,18 @@ export const getSongs = () => {
 
 	return deferred.promise;
 };
+
+export const addSong = (senData) => {
+	var deferred = q.defer();
+	const apiUrl = "/api/addSong";
+	Axios.post(apiUrl, senData).then((result) => {
+		console.log(result);
+		if (result.data.errno) {
+			deferred.reject("error retrieving artists");
+		} else {
+			deferred.resolve("succesful");
+		}
+	});
+
+	return deferred.promise;
+};
