@@ -23,18 +23,3 @@ export const searchAll = ({ searchTerm }) => {
 
 	return deferred.promise;
 }
-
-/*
-(result) => {
-		console.log(result);
-		if (!result.data.length) {
-			deferred.reject("Error in search");
-		} else {
-			data = result.data;
-			data.forEach((i) => {
-				i.actions = [ "add" ];
-			});
-
-			deferred.resolve(data);
-        }
-*/

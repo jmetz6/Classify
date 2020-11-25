@@ -1,17 +1,11 @@
-import React, { useState, useEffect, useAsync } from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Table from "../Table";
-import { getSongs } from "../../services/songs.service";
+import { getSongs, addSong } from "../../services/songs.service";
 import { getArtists } from "../../services/artists.service";
 import { Modal } from "../Modal";
-import q from "q";
 
 export default function Songs(props) {
-	// const { artists, error, isLoading } = useAsync({ promiseFn: getArtistsQuery })
-	// if (isLoading) return "Loading..."
-	// if (error) return `Something went wrong: ${error.message}`
-	// if (artists)
-
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
 	const closeModalHandler = () => setShow(false);
@@ -34,10 +28,20 @@ export default function Songs(props) {
 
 	const SendForm = () => {
 		let sendData = {
-			username: form.get("username"),
-			password: form.get("password"),
+			name: form.get("name"),
+			artist: form.get("artist"),
 		};
 		console.log(sendData);
+
+		addSong(sendData).then(
+			function(results) {
+				console.log("Success: added song '" + sendData.name + "'");
+				getSongsQuery();
+			}, 
+			function(error) {
+				console.log("Error: failed to add song '" + sendData.name + "'");
+			}
+		)
 	};
 
 	const onChange = (element, changes) => {
@@ -86,12 +90,10 @@ export default function Songs(props) {
 						close={closeModalHandler}
 						title="Add Song"
 						inputs={["name"]}
-						selects={[artists]}
-						selectOptions={[]}
+						selects={["artist"]}
 						onChange={onChange}
 						onSubmit={SendForm}
-						list={artists}
-						options={artists}
+						selectOptions={[artists]}
 					/>
 				) : null}
 
