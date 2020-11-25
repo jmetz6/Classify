@@ -34,6 +34,7 @@ export default function Artists(props) {
 		addArtist(sendData).then(
 			function (result) {
 				console.log(result);
+				getArtistsQuery();
 			},
 			function (error) {
 				console.error(error);
@@ -71,6 +72,7 @@ export default function Artists(props) {
 						close={closeModalHandler}
 						title="Add Artist"
 						inputs={["name"]}
+						selects={[]}
 						onChange={onChange}
 						onSubmit={SendForm}
 					/>

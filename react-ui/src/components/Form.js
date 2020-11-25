@@ -43,17 +43,7 @@ export const InputForm = ({
 	inputs,
 	selects,
 	selectOptions,
-	list,
-	options,
 }) => {
-	const SimpleList = ({ list }) => (
-		<ul>
-			{console.log(list)}
-			{list.map((item) => (
-				<li key={item.name}>{item.name}</li>
-			))}
-		</ul>
-	);
 	return (
 		<div id="input-form">
 			{inputs.map((element, number) => {
@@ -70,34 +60,23 @@ export const InputForm = ({
 					/>
 				);
 			})}
-			{/* <SimpleList list={list}></SimpleList> */}
 
-			{/* {selects.map((element, number) => {
+			{selects.map((element, i) => {
 				return (
-					<select key={element + "_" + number} name={element} value={element}>
-						{selectOptions
-							? selectOptions[number].map((option, optionIndex) => {
-									return (
-										<option
-											key={option.name + "_" + number + "_" + optionIndex}
-											value={option.name}
-										>
-											{option.name}
-										</option>
-									);
-							  })
-							: null}
+					<select key={element + "_" + i} name={element}
+						onChange={(e) => {
+							onChange(element, e.target.value);
+						}}>
+						{selectOptions[i].map((item, j) => {
+							return (
+								<option key={item.name + "_" + j} value={item.name}>
+									{item.name}
+								</option>
+							);
+						})}
 					</select>
 				);
-			})} */}
-
-			<select>
-				{list.map((item, index) => (
-					<option key={item.name + "_" + index} value={item.name}>
-						{item.name}
-					</option>
-				))}
-			</select>
+			})}
 
 			<button
 				onClick={() => {

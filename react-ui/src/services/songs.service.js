@@ -25,13 +25,13 @@ export const getSongs = () => {
 	return deferred.promise;
 };
 
-export const addSong = (senData) => {
+export const addSong = ({name, artist}) => {
 	var deferred = q.defer();
 	const apiUrl = "/api/addSong";
-	Axios.post(apiUrl, senData).then((result) => {
+	Axios.post(apiUrl, {name, artist}).then((result) => {
 		console.log(result);
 		if (result.data.errno) {
-			deferred.reject("error retrieving artists");
+			deferred.reject("error adding song");
 		} else {
 			deferred.resolve("succesful");
 		}

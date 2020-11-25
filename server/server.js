@@ -91,6 +91,38 @@ app.get("/api/songs", (req, res) => {
 	});
 });
 
+app.post("/api/addSong", (req, res) => {
+	const name = req.body.name;
+	const artist = req.body.artist;
+	if(artist) {
+		let sql = "INSERT INTO `songs` (`name`) VALUES (?); ";
+		sql +=
+			"INSERT INTO `song_artist_associations` (`songID`, `artistID`) VALUES (";
+		sql +=
+			"(SELECT `id` FROM `songs` WHERE `name`=?), ";
+		sql +=
+			"(SELECT `id` FROM `artists` WHERE `name`=?))";
+		pool.query(sql, [name, name, artist], (err, result) => {
+			if (err) {
+				console.log(err);
+				res.send(err);
+			}
+			res.send(result);
+		});
+	}
+	else {
+		let sql = "INSERT INTO `songs` (`name`) VALUES (?)";
+		pool.query(sql, [name], (err, result) => {
+			if (err) {
+				console.log(err);
+				res.send(err);
+			}
+			res.send(result);
+		});
+	}
+
+});
+
 app.post("/api/artists", (req, res) => {
 	const sql = "SELECT * FROM `artists`";
 	pool.query(sql, [], (err, result) => {
