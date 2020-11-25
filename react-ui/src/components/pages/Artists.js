@@ -11,6 +11,18 @@ export default function Artists(props) {
 	const [show, setShow] = useState(false);
 	const closeModalHandler = () => setShow(false);
 
+	const getArtistsQuery = () => {
+		getArtists().then(
+			function (artists) {
+				setData(artists);
+			},
+			function (error) {
+				console.log("Error: Failed to retrieve artist data");
+				console.error(error);
+			}
+		);
+	}
+
 	let form = new Map();
 
 	const SendForm = () => {
@@ -34,15 +46,7 @@ export default function Artists(props) {
 	};
 
 	useEffect(() => {
-		getArtists().then(
-			function (artists) {
-				setData(artists);
-			},
-			function (error) {
-				console.log("Error: Failed to retrieve artist data");
-				console.error(error);
-			}
-		);
+		getArtistsQuery();
 	}, []);
 
 	return (
