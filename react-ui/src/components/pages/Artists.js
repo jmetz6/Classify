@@ -39,7 +39,7 @@ export default function Artists(props) {
 				setData(artists);
 			},
 			function (error) {
-				console.log("Failed to retrieve artist data");
+				console.log("Error: Failed to retrieve artist data");
 				console.error(error);
 			}
 		);

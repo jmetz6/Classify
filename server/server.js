@@ -51,6 +51,20 @@ app.post("/api/signup", (req, res) => {
 	});
 });
 
+app.post("/api/getUserByName", (req, res) => {
+	let username = req.body.username;
+	console.log("username is " + username);
+	const sql = "SELECT * FROM `users` where `username`=?";
+	pool.query(sql, [username], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		console.log(result);
+		res.send(result);
+	});
+});
+
 app.post("/api/login", (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;

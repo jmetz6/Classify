@@ -24,13 +24,10 @@ export default function Admin(props) {
 		};
 		console.log(sendData);
 
-		addUser({
-			username: form.get("username"),
-			password: form.get("password"),
-		}).then(
-			// function (users) {
-			// 	setNewUser(users);
-			// },
+		addUser(sendData).then(
+			function (results) {
+				console.log(results)
+			},
 			function (error) {
 				console.log("Failed to retrieve artist data");
 				console.error(error);
