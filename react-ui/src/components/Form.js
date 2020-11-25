@@ -35,7 +35,7 @@ export const SignUpForm = ({ onClick }) => {
 	);
 };
 
-export const InputForm = ({ onChange, onSubmit, close, inputs, selects }) => {
+export const InputForm = ({ onChange, onSubmit, close, inputs, selects, selectOptions }) => {
 	return (
 		<div id="input-form">
 			{inputs.map((element, number) => {
@@ -54,7 +54,15 @@ export const InputForm = ({ onChange, onSubmit, close, inputs, selects }) => {
 			})}
 
 			{selects.map((element, number) => {
-				return <select key={element + "_" + number}>{element}</select>;
+				return (
+					<select key={element + "_" + number} name={element}>
+						{selectOptions[number].map((option, optionIndex) => {
+							return (
+								<option key={option + "_" + number + "_" + optionIndex} value={option}>{option}</option>
+								)	
+						})}
+					</select>
+				);
 			})}
 
 			<button onClick={() => { onSubmit(); close();}} className="btn btn-primary">Submit</button>
