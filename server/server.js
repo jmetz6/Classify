@@ -65,16 +65,18 @@ app.post("/api/getUserByName", (req, res) => {
 	});
 });
 
-app.get("/api/removeUser", (req, res) => {
-	let id = req.body.id;
-	const sql = "DELETE FROM `users` WHERE `id`=30";
-	console.log(id);
-	pool.query(sql, [id], (err, result) => {
+app.post("/api/removeUser", (req, res) => {
+	let id = req.body.userID;
+	let sql = "DELETE FROM `playlists` WHERE `user`=?; ";
+	sql +=
+		"DELETE FROM `users` WHERE `id`=?";
+	console.log("backend id is " + id);
+	pool.query(sql, [id, id], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
 		}
-		console.log(result);
+		//console.log(result);
 		res.send(result);
 	});
 });

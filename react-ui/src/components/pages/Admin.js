@@ -10,7 +10,6 @@ export default function Admin(props) {
 	const closeModalHandler = () => setShow(false);
 	const [cols] = useState(["Username", "Password", "Actions"]);
 	const [data, setData] = useState([]);
-	const [id, setId] = useState("");
 	let form = new Map();
 
 	const getUsersQuery = () => {
@@ -54,18 +53,18 @@ export default function Admin(props) {
 		getUsersQuery();
 	}, []);
 
-	const Remove = (e) => {
-		e.preventDefault();
-		// debugger;
-		setId(e.target.value);
-		const userID = id;
-		console.log(userID);
-		removeUser(userID).then(
+	const Remove = (row) => {
+		console.log("id is " + row.id);
+		let sendData = {
+			id: row.id
+		}
+		removeUser(sendData).then(
 			function (results) {
 				console.log(results);
+				getUsersQuery();
 			},
 			function (error) {
-				console.log("Failed to retrieve artist data");
+				console.log("Failed to remove user");
 				console.error(error);
 			}
 		);

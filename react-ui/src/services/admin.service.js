@@ -59,10 +59,8 @@ export const addUser = ({ username, password }) => {
 export const removeUser = ({ id }) => {
 	const deferred = q.defer();
 	const apiUrl = "/api/removeUser";
-	// console.log(test);
-	Axios.get(apiUrl, { id: id }).then((result) => {
-		// debugger;
-		// console.log(result);
+	console.log("service has id " + id);
+	Axios.post(apiUrl, { userID: id }).then((result) => {
 		if (result.data.errno) {
 			deferred.reject("remove user failed");
 		} else {
