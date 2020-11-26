@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
-import Table from "../Table";
+import { Table } from "../Table";
 import { getSongs, addSong } from "../../services/songs.service";
 import { getArtists } from "../../services/artists.service";
 import { Modal } from "../Modal";
@@ -34,14 +34,14 @@ export default function Songs(props) {
 		console.log(sendData);
 
 		addSong(sendData).then(
-			function(results) {
+			function (results) {
 				console.log("Success: added song '" + sendData.name + "'");
 				getSongsQuery();
-			}, 
-			function(error) {
+			},
+			function (error) {
 				console.log("Error: failed to add song '" + sendData.name + "'");
 			}
-		)
+		);
 	};
 
 	const onChange = (element, changes) => {
