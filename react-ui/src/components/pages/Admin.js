@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "../Table";
 import { Modal } from "../Modal";
-import { getUsers, addUser } from "../../services/admin.service";
+import { getUsers, addUser, removeUser } from "../../services/admin.service";
 import "../../App.css";
-import Axios from "axios";
 
 export default function Admin(props) {
 	const [show, setShow] = useState(false);
@@ -11,6 +10,7 @@ export default function Admin(props) {
 	const closeModalHandler = () => setShow(false);
 	const [cols] = useState(["Username", "Password", "Actions"]);
 	const [data, setData] = useState([]);
+	const [id, setId] = useState("");
 	let form = new Map();
 
 	const getUsersQuery = () => {
@@ -57,19 +57,27 @@ export default function Admin(props) {
 	const Remove = (e) => {
 		e.preventDefault();
 		// debugger;
-
-		console.log(data);
-		const apiUrl = "/api/removeUser";
-		Axios.post(apiUrl).then((result) => {
-			// debugger;
-			console.log(result);
-			if (result.data.errno) {
-				alert("remove user failed");
-			} else {
-				alert("user removed");
+		setId(e.target.value);
+		const userID = id;
+		console.log(userID);
+		removeUser(userID).then(
+			function (results) {
+				console.log(results);
+			},
+			function (error) {
+				console.log("Failed to retrieve artist data");
+				console.error(error);
 			}
-		});
+		);
 	};
+
+	// const testin = (e) => {
+	// 	e.persist();
+	// 	// debugger;
+	// 	// setTest({ ...data, [e.target.name]: e.target.value });
+	// 	setTest(e.target.value);
+	// 	console.log(test);
+	// };
 	return (
 		<>
 			{show ? (
@@ -104,7 +112,6 @@ export default function Admin(props) {
 						cols={cols}
 						data={data}
 						property="user"
-						// action={Remove}
 						remove={Remove}
 					></Table>
 				</div>
