@@ -65,11 +65,11 @@ app.post("/api/getUserByName", (req, res) => {
 	});
 });
 
-app.post("/api/removeUser", (req, res) => {
-	let username = req.body.username;
-	//console.log("username is " + username);
-	const sql = "DELETE FROM `users` WHERE `username`=?;";
-	pool.query(sql, [username], (err, result) => {
+app.get("/api/removeUser", (req, res) => {
+	let id = req.body.id;
+	const sql = "DELETE FROM `users` WHERE `id`=30";
+	console.log(id);
+	pool.query(sql, [id], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);

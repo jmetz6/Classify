@@ -39,8 +39,8 @@ export const getUserByName = ({ username }) => {
 };
 
 export const addUser = ({ username, password }) => {
-	var deferred = q.defer();
-	let apiUrlForm = "/api/signup";
+	const deferred = q.defer();
+	const apiUrlForm = "/api/signup";
 	Axios.post(apiUrlForm, { username: username, password: password }).then(
 		(result) => {
 			// debugger;
@@ -53,5 +53,21 @@ export const addUser = ({ username, password }) => {
 		}
 	);
 
+	return deferred.promise;
+};
+
+export const removeUser = ({ id }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/removeUser";
+	// console.log(test);
+	Axios.get(apiUrl, { id: id }).then((result) => {
+		// debugger;
+		// console.log(result);
+		if (result.data.errno) {
+			deferred.reject("remove user failed");
+		} else {
+			deferred.resolve("user removed");
+		}
+	});
 	return deferred.promise;
 };
