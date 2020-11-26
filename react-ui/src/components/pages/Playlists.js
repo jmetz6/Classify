@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../../App.css";
 import { getPlaylists, addPlaylist } from "../../services/playlists.service";
 import { getUserByName } from "../../services/admin.service";
-import Table from "../Table";
+import { Table } from "../Table";
 import { Modal } from "../Modal";
-
 
 export default function Playlists(props) {
 	const [cols] = useState(["Name", "User", "Actions"]);
 	const [data, setData] = useState([]);
-	
+
 	const [show, setShow] = useState(false);
 	const closeModalHandler = () => setShow(false);
 
@@ -17,47 +16,47 @@ export default function Playlists(props) {
 
 	const getPlaylistsQuery = () => {
 		getPlaylists().then(
-			function(results) {
+			function (results) {
 				setData(results);
-			}, 
-			function(error) {
+			},
+			function (error) {
 				console.log("Error: Failed to retrieve playlists");
 				console.error(error);
-		});
-	}
+			}
+		);
+	};
 
 	const SendForm = () => {
 		let sendData = {
 			name: form.get("name"),
 		};
-		
+
 		//db requires `name` and `user`
 		let username = localStorage.getItem("user");
-		if(username === "undefined") {
+		if (username === "undefined") {
 			alert("You are not logged in!");
 			return;
 		}
 
 		getUserByName({ username }).then(
-			function(results) {
+			function (results) {
 				let user = results[0];
 				sendData.id = user.id;
 				addPlaylist(sendData).then(
-					function(results) {
+					function (results) {
 						getPlaylistsQuery();
 						console.log("Success: Playlist Added");
-					}, 
-					function(error) {
+					},
+					function (error) {
 						console.log("Error: failed to add new playlist");
 					}
 				);
-			}, 
-			function(error) {
+			},
+			function (error) {
 				console.log("Error: Faild to retrieve user");
 				alert("Add playlist failed");
 			}
 		);
-
 	};
 
 	const onChange = (element, changes) => {

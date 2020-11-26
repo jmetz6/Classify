@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import { getArtists, addArtist } from "../../services/artists.service";
-import Table from "../Table";
+import { Table } from "../Table";
 import { Modal } from "../Modal";
 
 export default function Artists(props) {

@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import "./Table.css";
 
-function Table(props) {
+export const Table = ({ title, cols, data, property, add, edit, remove }) => {
 	return (
 		<div id="resp-table">
 			<div id="resp-table-caption">
-				<span>{props.title}</span>
+				<span>{title}</span>
 			</div>
 
 			<div id="resp-table-header">
-				{props.cols.map((i) => {
+				{cols.map((i) => {
 					return (
 						<span key={i} className="table-header-cell">
 							{i}
@@ -21,7 +21,7 @@ function Table(props) {
 			</div>
 
 			<div className="resp-table-body">
-				{props.data.map((row) => {
+				{data.map((row) => {
 					return (
 						<div key={row.id} className="resp-table-row">
 							{Object.keys(row).map((keyName, i) => {
@@ -39,8 +39,9 @@ function Table(props) {
 																<button
 																	className="btn btn-primary"
 																	key={action + row.id}
+																	onClick={add}
 																>
-																	Add {props.property}
+																	Add {property}
 																</button>
 															);
 														case "edit":
@@ -48,8 +49,9 @@ function Table(props) {
 																<button
 																	className="btn btn-primary"
 																	key={action + row.id}
+																	onClick={edit}
 																>
-																	Edit {props.property}
+																	Edit {property}
 																</button>
 															);
 														case "remove":
@@ -57,18 +59,19 @@ function Table(props) {
 																<button
 																	className="btn btn-secondary"
 																	key={action + row.id}
+																	onClick={remove}
 																>
-																	Remove {props.property}
+																	Remove {property}
 																</button>
 															);
 														case "select":
 															return (
 																<Link
 																	key={action + row.id}
-																	to={`/${props.property}/${row.id}`}
+																	to={`/${property}/${row.id}`}
 																>
 																	<button className="btn btn-primary">
-																		Select {props.property}
+																		Select {property}
 																	</button>
 																</Link>
 															);
@@ -97,7 +100,7 @@ function Table(props) {
 			</div>
 
 			<div id="resp-table-footer">
-				{props.cols.map((i) => {
+				{cols.map((i) => {
 					return (
 						<span key={i + "_footer"} className="table-footer-cell"></span>
 					);
@@ -105,5 +108,5 @@ function Table(props) {
 			</div>
 		</div>
 	);
-}
-export default Table;
+};
+// export default Table;

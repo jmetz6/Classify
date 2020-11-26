@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Table from "../Table";
+import { Table } from "../Table";
 import { Modal } from "../Modal";
 import { getUsers, addUser } from "../../services/admin.service";
 import "../../App.css";
+import Axios from "axios";
 
 export default function Admin(props) {
 	const [show, setShow] = useState(false);
@@ -22,7 +23,7 @@ export default function Admin(props) {
 				console.error(error);
 			}
 		);
-	}
+	};
 
 	const SendForm = () => {
 		let sendData = {
@@ -33,8 +34,8 @@ export default function Admin(props) {
 
 		addUser(sendData).then(
 			function (results) {
-				console.log(results)
-				getUsersQuery();	
+				console.log(results);
+				getUsersQuery();
 			},
 			function (error) {
 				console.log("Failed to retrieve artist data");
@@ -53,6 +54,22 @@ export default function Admin(props) {
 		getUsersQuery();
 	}, []);
 
+	const Remove = (e) => {
+		e.preventDefault();
+		// debugger;
+
+		console.log(data);
+		const apiUrl = "/api/removeUser";
+		Axios.post(apiUrl).then((result) => {
+			// debugger;
+			console.log(result);
+			if (result.data.errno) {
+				alert("remove user failed");
+			} else {
+				alert("user removed");
+			}
+		});
+	};
 	return (
 		<>
 			{show ? (
@@ -82,7 +99,14 @@ export default function Admin(props) {
 						/>
 					) : null}
 
-					<Table title="Users" cols={cols} data={data} property="user"></Table>
+					<Table
+						title="Users"
+						cols={cols}
+						data={data}
+						property="user"
+						// action={Remove}
+						remove={Remove}
+					></Table>
 				</div>
 			</div>
 		</>

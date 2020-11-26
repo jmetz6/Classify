@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
-import Table from "../Table";
+import { Table } from "../Table";
 import { getPlaylist } from "../../services/playlists.service";
 
 export default function Playlist(props) {
