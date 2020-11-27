@@ -176,7 +176,7 @@ app.post("/api/addArtist", (req, res) => {
 });
 
 app.post("/api/removeArtists", (req, res) => {
-	let id = req.body.ArtistsID;
+	let id = req.body.id;
 	let sql = "DELETE FROM `song_artist_associations` WHERE `artistID`=?; ";
 	sql += "DELETE FROM `artists` WHERE `id`=?";
 	console.log("backend id is " + id);

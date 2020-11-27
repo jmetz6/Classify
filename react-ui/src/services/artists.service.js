@@ -44,7 +44,7 @@ export const removeArtists = ({ id }) => {
 	const deferred = q.defer();
 	const apiUrl = "/api/removeArtists";
 	console.log("service has id " + id);
-	Axios.post(apiUrl, { userID: id }).then((result) => {
+	Axios.post(apiUrl, { id }).then((result) => {
 		if (result.data.errno) {
 			deferred.reject("remove artists failed");
 		} else {
