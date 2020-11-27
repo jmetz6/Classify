@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import { Table } from "../Table";
-import { getSongs, addSong } from "../../services/songs.service";
+import { getSongs, addSong, removeSong } from "../../services/songs.service";
 import { getArtists } from "../../services/artists.service";
 import { Modal } from "../Modal";
 
@@ -68,6 +68,23 @@ export default function Songs(props) {
 		getSongsQuery();
 	}, []);
 
+	const Remove = (row) => {
+		console.log("id is " + row.id);
+		let sendData = {
+			id: row.id
+		}
+		removeSong(sendData).then(
+			function (results) {
+				console.log(results);
+				getSongsQuery();
+			},
+			function (error) {
+				console.log("Failed to remove user");
+				console.error(error);
+			}
+		);
+	};
+
 	return (
 		<>
 			{show ? (
@@ -97,7 +114,7 @@ export default function Songs(props) {
 					/>
 				) : null}
 
-				<Table title="Songs" cols={cols} data={data} property="song"></Table>
+				<Table title="Songs" cols={cols} data={data} property="song" remove={Remove}></Table>
 			</div>
 		</>
 	);

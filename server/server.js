@@ -135,6 +135,24 @@ app.post("/api/addSong", (req, res) => {
 	}
 });
 
+app.post("/api/removeSong", (req, res) => {
+	const id = req.body.id;
+
+	let sql = "DELETE FROM `playlist_song_associations` WHERE `songID`=?; ";
+	sql +=
+		"DELETE FROM `song_artist_associations` WHERE `songID`=?; ";
+	sql += 
+		"DELETE FROM `songs` WHERE `id`=?";
+
+	pool.query(sql, [id, id, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 app.post("/api/artists", (req, res) => {
 	const sql = "SELECT * FROM `artists`";
 	pool.query(sql, [], (err, result) => {
