@@ -38,9 +38,9 @@ export const getPlaylists = () => {
 			deferred.reject("Error retrieving playlists");
 		} else {
 			data = result.data;
-		
+
 			data.forEach((i) => {
-				i.actions = [ "select", "edit", "remove" ];
+				i.actions = ["select", "edit", "remove"];
 			});
 
 			deferred.resolve(data);
@@ -51,35 +51,46 @@ export const getPlaylists = () => {
 };
 
 export const addPlaylist = ({ name, id }) => {
-	var deferred = q.defer(); 
+	var deferred = q.defer();
 
 	const apiUrl = "/api/addPlaylist";
-	Axios.post(apiUrl, {name, id}).then((result) => {
+	Axios.post(apiUrl, { name, id }).then((result) => {
 		console.log(result);
 		if (result.data.errno) {
 			deferred.reject("Error retrieving playlist");
-		} 
-		else {
+		} else {
 			deferred.resolve(result);
 		}
 	});
 
 	return deferred.promise;
-}
-
+};
 export const removePlaylist = ({ id }) => {
-	var deferred = q.defer(); 
+	var deferred = q.defer();
 
 	const apiUrl = "/api/removePlaylist";
-	Axios.post(apiUrl, {id}).then((result) => {
+	Axios.post(apiUrl, { id }).then((result) => {
 		console.log(result);
 		if (result.data.errno) {
 			deferred.reject("Error removing playlist");
-		} 
-		else {
+		} else {
 			deferred.resolve("Success");
 		}
 	});
 
 	return deferred.promise;
-}
+};
+
+export const removeSongFromPlaylist = ({ sid, pid }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/removeSongFromPlaylist";
+	console.log("service has id " + sid, pid);
+	Axios.post(apiUrl, { sid: sid, pid: pid }).then((result) => {
+		if (result.data.errno) {
+			deferred.reject("remove song from playlist failed");
+		} else {
+			deferred.resolve("song removed");
+		}
+	});
+	return deferred.promise;
+};
