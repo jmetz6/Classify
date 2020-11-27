@@ -39,3 +39,18 @@ export const addSong = ({name, artist}) => {
 
 	return deferred.promise;
 };
+
+export const removeSong = ({id}) => {
+	var deferred = q.defer();
+	const apiUrl = "/api/removeSong";
+	Axios.post(apiUrl, {id}).then((result) => {
+		console.log(result);
+		if (result.data.errno) {
+			deferred.reject("error removing song");
+		} else {
+			deferred.resolve("succesful");
+		}
+	});
+
+	return deferred.promise;
+};
