@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
-import { getArtists, addArtist } from "../../services/artists.service";
+import {
+	getArtists,
+	addArtist,
+	removeArtists,
+} from "../../services/artists.service";
 import { Table } from "../Table";
 import { Modal } from "../Modal";
 
@@ -50,6 +54,23 @@ export default function Artists(props) {
 		getArtistsQuery();
 	}, []);
 
+	const Remove = (row) => {
+		console.log("id is " + row.id);
+		let sendData = {
+			id: row.id,
+		};
+		removeArtists(sendData).then(
+			function (results) {
+				console.log(results);
+				getArtistsQuery();
+			},
+			function (error) {
+				console.log("Failed to remove user");
+				console.error(error);
+			}
+		);
+	};
+
 	return (
 		<>
 			{show ? (
@@ -83,6 +104,7 @@ export default function Artists(props) {
 					cols={cols}
 					data={data}
 					property="artist"
+					remove={Remove}
 				></Table>
 			</div>
 		</>
