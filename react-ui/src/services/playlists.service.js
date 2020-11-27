@@ -66,3 +66,20 @@ export const addPlaylist = ({ name, id }) => {
 
 	return deferred.promise;
 }
+
+export const removePlaylist = ({ id }) => {
+	var deferred = q.defer(); 
+
+	const apiUrl = "/api/removePlaylist";
+	Axios.post(apiUrl, {id}).then((result) => {
+		console.log(result);
+		if (result.data.errno) {
+			deferred.reject("Error removing playlist");
+		} 
+		else {
+			deferred.resolve("Success");
+		}
+	});
+
+	return deferred.promise;
+}
