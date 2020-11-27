@@ -39,7 +39,9 @@ export const Table = ({ title, cols, data, property, add, edit, remove }) => {
 																<button
 																	className="btn btn-primary"
 																	key={action + row.id}
-																	onClick={add}
+																	onClick={() => {
+																		add(row);
+																	}}
 																>
 																	Add {property}
 																</button>

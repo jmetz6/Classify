@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import { Table } from "../Table";
+import { Modal } from "../Modal";
 import { searchAll } from "../../services/search.service";
+import { getPlaylists, addSongToPlaylist } from "../../services/playlists.service";
+
+let addToPlaylistForm = new Map();
 
 export default function Search() {
 	const [cols] = useState(["Title", "Artist", "Actions"]);
@@ -10,10 +14,26 @@ export default function Search() {
 	const [title, setTitle] = useState("");
 	const [searchValue, setSearchValue] = useState("");
 
+	const closeAddModalHandler = () => setShowAddModal(false);
+	const [showAddModal, setShowAddModal] = useState(false);
+	const [playlists, setPlaylists] = useState([]);
+
 	const onChange = (e) => {
 		setSearchValue(e.target.value);
 		onSearch();
 	};
+
+	useEffect(() => {
+		getPlaylists().then(
+			function (results) {
+				setPlaylists(results);
+			},
+			function (error) {
+				console.log("Error: Failed to retrieve artist data");
+				console.log(error);
+			}
+		);
+	}, []);
 
 	const onSearch = () => {
 		//console.log("searching for '" + searchValue + "'...");
@@ -46,6 +66,34 @@ export default function Search() {
 		onSearch();
 	};
 
+
+	const SendAddForm = () => {
+		let sendData = {
+			sid: addToPlaylistForm.get("sid"),
+			playlistName: addToPlaylistForm.get("playlist"),
+		};
+		console.log(sendData);
+		addSongToPlaylist(sendData).then(
+			function (results) {
+				console.log("Success: added song to playlist");
+			},
+			function (error) {
+				console.log("Error: failed to add song to playlist");
+			}
+		);
+	}
+
+	const onChangeAddModal = (element, changes) => {
+		//stores the changes in vars
+		//console.log("Called onChange with " + changes);
+		addToPlaylistForm.set(element, changes);
+	};
+
+	const AddToPlaylist = (row) => {
+		setShowAddModal(true);
+		addToPlaylistForm.set("sid", row.id);
+	}
+
 	return (
 		<div className="search flex-page flex-page-column">
 			<div>
@@ -60,12 +108,26 @@ export default function Search() {
 				></input>
 			</div>
 
+			{showAddModal ? (
+					<Modal
+						show={showAddModal}
+						close={closeAddModalHandler}
+						title="Add Song to Playlist"
+						inputs={[]}
+						selects={["playlist"]}
+						onChange={onChangeAddModal}
+						onSubmit={SendAddForm}
+						selectOptions={[playlists]}
+					/>
+				) : null}
+
 			{show ? (
 				<Table
 					title={"Results: " + title}
 					cols={cols}
 					data={data}
 					property="song"
+					add={AddToPlaylist}
 				></Table>
 			) : null}
 		</div>
