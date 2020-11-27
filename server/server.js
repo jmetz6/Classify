@@ -240,6 +240,19 @@ app.post("/api/removeSongFromPlaylist", (req, res) => {
 	});
 });
 
+app.post("/api/addSongToPlaylist", (req, res) => {
+	let sid = req.body.sid;
+	let playlistName = req.body.playlistName;
+	let sql = "INSERT INTO `playlist_song_associations` (`songID`, `playlistID`) VALUES (?, (SELECT `id` FROM `playlists` WHERE `name`=?))";
+	pool.query(sql, [sid, playlistName], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 app.post("/api/playlist", (req, res) => {
 	let sql = "SELECT `name` from `playlists` where `id`=?; ";
 	sql +=

@@ -94,3 +94,16 @@ export const removeSongFromPlaylist = ({ sid, pid }) => {
 	});
 	return deferred.promise;
 };
+
+export const addSongToPlaylist = ({ sid, playlistName }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/addSongToPlaylist";
+	Axios.post(apiUrl, { sid, playlistName }).then((result) => {
+		if (result.data.errno) {
+			deferred.reject("add song to playlist failed");
+		} else {
+			deferred.resolve("song added to playlist");
+		}
+	});
+	return deferred.promise;
+};
