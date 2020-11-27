@@ -215,6 +215,20 @@ app.post("/api/addPlaylist", (req, res) => {
 	});
 });
 
+app.post("/api/removePlaylist", (req, res) => {
+	let id = req.body.id;
+	let sql = "DELETE FROM `playlist_song_associations` WHERE `playlistID`=?; ";
+	sql +=
+		"DELETE FROM `playlists` WHERE `id`=?";
+	pool.query(sql, [id, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
 app.post("/api/playlist", (req, res) => {
 	let sql = "SELECT `name` from `playlists` where `id`=?; ";
 	sql +=

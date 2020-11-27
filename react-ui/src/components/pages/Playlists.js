@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
-import { getPlaylists, addPlaylist } from "../../services/playlists.service";
+import { getPlaylists, addPlaylist, removePlaylist } from "../../services/playlists.service";
 import { getUserByName } from "../../services/admin.service";
 import { Table } from "../Table";
 import { Modal } from "../Modal";
@@ -67,6 +67,24 @@ export default function Playlists(props) {
 		getPlaylistsQuery();
 	}, []);
 
+
+	const Remove = (row) => {
+		console.log("id is " + row.id);
+		let sendData = {
+			id: row.id,
+		};
+		removePlaylist(sendData).then(
+			function (results) {
+				console.log(results);
+				getPlaylistsQuery();
+			},
+			function (error) {
+				console.log("Failed to remove user");
+				console.error(error);
+			}
+		);
+	};
+
 	return (
 		<>
 			{show ? (
@@ -100,6 +118,7 @@ export default function Playlists(props) {
 					cols={cols}
 					data={data}
 					property="playlist"
+					remove={Remove}
 				></Table>
 			</div>
 		</>
