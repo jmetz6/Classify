@@ -138,10 +138,8 @@ app.post("/api/removeSong", (req, res) => {
 	const id = req.body.id;
 
 	let sql = "DELETE FROM `playlist_song_associations` WHERE `songID`=?; ";
-	sql +=
-		"DELETE FROM `song_artist_associations` WHERE `songID`=?; ";
-	sql += 
-		"DELETE FROM `songs` WHERE `id`=?";
+	sql += "DELETE FROM `song_artist_associations` WHERE `songID`=?; ";
+	sql += "DELETE FROM `songs` WHERE `id`=?";
 
 	pool.query(sql, [id, id, id], (err, result) => {
 		if (err) {
@@ -218,9 +216,22 @@ app.post("/api/addPlaylist", (req, res) => {
 app.post("/api/removePlaylist", (req, res) => {
 	let id = req.body.id;
 	let sql = "DELETE FROM `playlist_song_associations` WHERE `playlistID`=?; ";
-	sql +=
-		"DELETE FROM `playlists` WHERE `id`=?";
+	sql += "DELETE FROM `playlists` WHERE `id`=?";
 	pool.query(sql, [id, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/removeSongFromPlaylist", (req, res) => {
+	let sid = req.body.sid;
+	let pid = req.body.pid;
+	let sql =
+		"DELETE FROM `playlist_song_associations` WHERE `songID`=? AND `playlistID`=?; ";
+	pool.query(sql, [sid, pid], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
