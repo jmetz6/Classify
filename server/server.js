@@ -68,8 +68,7 @@ app.post("/api/getUserByName", (req, res) => {
 app.post("/api/removeUser", (req, res) => {
 	let id = req.body.userID;
 	let sql = "DELETE FROM `playlists` WHERE `user`=?; ";
-	sql +=
-		"DELETE FROM `users` WHERE `id`=?";
+	sql += "DELETE FROM `users` WHERE `id`=?";
 	console.log("backend id is " + id);
 	pool.query(sql, [id, id], (err, result) => {
 		if (err) {
@@ -154,6 +153,21 @@ app.post("/api/addArtist", (req, res) => {
 			console.log(err);
 			res.send(err);
 		}
+		res.send(result);
+	});
+});
+
+app.post("/api/removeArtists", (req, res) => {
+	let id = req.body.ArtistsID;
+	let sql = "DELETE FROM `song_artist_associations` WHERE `artistID`=?; ";
+	sql += "DELETE FROM `artists` WHERE `id`=?";
+	console.log("backend id is " + id);
+	pool.query(sql, [id, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		//console.log(result);
 		res.send(result);
 	});
 });

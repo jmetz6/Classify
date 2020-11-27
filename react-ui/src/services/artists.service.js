@@ -12,8 +12,7 @@ export const getArtists = () => {
 		console.log(result);
 		if (!result.data.length) {
 			deferred.reject("error retrieving artists");
-		} 
-		else {
+		} else {
 			data = result.data;
 			data.forEach((i) => {
 				i.actions = ["edit", "remove"];
@@ -33,11 +32,24 @@ export const addArtist = (sendData) => {
 		console.log(result);
 		if (result.data.errno) {
 			deferred.reject("error retrieving artists");
-		} 
-		else {
+		} else {
 			deferred.resolve("sucessful");
 		}
 	});
 
 	return deferred.promise;
-}
+};
+
+export const removeArtists = ({ id }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/removeArtists";
+	console.log("service has id " + id);
+	Axios.post(apiUrl, { userID: id }).then((result) => {
+		if (result.data.errno) {
+			deferred.reject("remove artists failed");
+		} else {
+			deferred.resolve("artists removed");
+		}
+	});
+	return deferred.promise;
+};

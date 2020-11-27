@@ -56,8 +56,8 @@ export default function Admin(props) {
 	const Remove = (row) => {
 		console.log("id is " + row.id);
 		let sendData = {
-			id: row.id
-		}
+			id: row.id,
+		};
 		removeUser(sendData).then(
 			function (results) {
 				console.log(results);
@@ -70,13 +70,6 @@ export default function Admin(props) {
 		);
 	};
 
-	// const testin = (e) => {
-	// 	e.persist();
-	// 	// debugger;
-	// 	// setTest({ ...data, [e.target.name]: e.target.value });
-	// 	setTest(e.target.value);
-	// 	console.log(test);
-	// };
 	return (
 		<>
 			{show ? (

@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `playlists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `playlists` (
-  	`id` INTEGER NOT NULL AUTO_INCREMENT,
+  	`id` INTEGER AUTO_INCREMENT,
   	`name` VARCHAR(100) UNIQUE NOT NULL,
 	`user` INTEGER NOT NULL,
 	PRIMARY KEY (`id`),
@@ -112,7 +112,7 @@ CREATE TABLE `playlist_song_associations` (
   	`playlistID` INTEGER NOT NULL,
   	PRIMARY KEY (`id`),
   	FOREIGN KEY (`songID`) REFERENCES `songs`(`id`),
-	FOREIGN KEY (`playlistID`) REFERENCES `artists`(`id`)
+	FOREIGN KEY (`playlistID`) REFERENCES `playlists`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=LATIN1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
