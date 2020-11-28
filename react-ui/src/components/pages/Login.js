@@ -65,6 +65,7 @@ export default function Login() {
 						name="login"
 						placeholder="password"
 					/>
+					<li>testers log in with ('admin', 'password')</li>
 					<input
 						type="submit"
 						onClick={Authentication}
