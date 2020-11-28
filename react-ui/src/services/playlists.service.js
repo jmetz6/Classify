@@ -107,3 +107,17 @@ export const addSongToPlaylist = ({ sid, playlistName }) => {
 	});
 	return deferred.promise;
 };
+
+export const editPlaylist = ({ id, name }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/editPlaylist";
+
+	Axios.post(apiUrl, { id, name }).then((result) => {
+		if (result.data.errno) {
+			deferred.reject("edit playlist failed");
+		} else {
+			deferred.resolve("playlist edit successful");
+		}
+	});
+	return deferred.promise;
+};

@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
-import { getPlaylists, addPlaylist, removePlaylist } from "../../services/playlists.service";
+import { getPlaylists, addPlaylist, editPlaylist, removePlaylist } from "../../services/playlists.service";
 import { getUserByName } from "../../services/admin.service";
 import { Table } from "../Table";
 import { Modal } from "../Modal";
+
+let formAdd = new Map();
+let formEdit = new Map();
 
 export default function Playlists(props) {
 	const [cols] = useState(["Name", "User", "Actions"]);
 	const [data, setData] = useState([]);
 
-	const [show, setShow] = useState(false);
-	const closeModalHandler = () => setShow(false);
+	const [showAdd, setShowAdd] = useState(false);
+	const [showEdit, setShowEdit] = useState(false);
 
-	let form = new Map();
+	const closeAddModalHandler = () => setShowAdd(false);
+	const closeEditModalHandler = () => setShowEdit(false);
+
+
 
 	const getPlaylistsQuery = () => {
 		getPlaylists().then(
@@ -28,7 +34,7 @@ export default function Playlists(props) {
 
 	const SendForm = () => {
 		let sendData = {
-			name: form.get("name"),
+			name: formAdd.get("name"),
 		};
 
 		//db requires `name` and `user`
@@ -60,7 +66,7 @@ export default function Playlists(props) {
 	};
 
 	const onChange = (element, changes) => {
-		form.set(element, changes);
+		formAdd.set(element, changes);
 	};
 
 	useEffect(() => {
@@ -85,31 +91,71 @@ export default function Playlists(props) {
 		);
 	};
 
+	const onChangeEdit = (element, changes) => {
+		formEdit.set(element, changes);
+	};
+
+	const SendFormEdit = () => {
+		let sendData = {
+			id: formEdit.get("id"),
+			name: formEdit.get("name"),
+		};
+		console.log(sendData);
+
+		editPlaylist(sendData).then(
+			function (result) {
+				console.log(result);
+				getPlaylistsQuery();
+			},
+			function (error) {
+				console.error(error);
+			}
+		);
+	};
+
+	const Edit = (row) => {
+		formEdit.set("id", row.id);
+		formEdit.set("name", row.name);
+		setShowEdit(true);
+	};
+
 	return (
 		<>
-			{show ? (
+			{(showAdd || showEdit) ? (
 				<div
-					onClick={closeModalHandler}
+					onClick={closeAddModalHandler}
 					className="back-drop fadeIn first"
 				></div>
 			) : null}
 
 			<div className="playlists flex-page flex-page-column">
 				<div>
-					<button onClick={() => setShow(true)} className="btn btn-primary">
+					<button onClick={() => setShowAdd(true)} className="btn btn-primary">
 						Add new playlist
 					</button>
 				</div>
 
-				{show ? (
+				{showAdd ? (
 					<Modal
-						show={show}
-						close={closeModalHandler}
+						show={showAdd}
+						close={closeAddModalHandler}
 						title="Add Playlist"
 						inputs={["name"]}
 						selects={[]}
 						onChange={onChange}
 						onSubmit={SendForm}
+					/>
+				) : null}
+	
+				{showEdit ? (
+					<Modal
+						show={showEdit}
+						close={closeEditModalHandler}
+						title="Edit Playlist"
+						inputs={["name"]}
+						selects={[]}
+						onChange={onChangeEdit}
+						onSubmit={SendFormEdit}
 					/>
 				) : null}
 
@@ -119,6 +165,7 @@ export default function Playlists(props) {
 					data={data}
 					property="playlist"
 					remove={Remove}
+					edit={Edit}
 				></Table>
 			</div>
 		</>
