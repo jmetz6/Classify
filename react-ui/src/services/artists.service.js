@@ -53,3 +53,18 @@ export const removeArtists = ({ id }) => {
 	});
 	return deferred.promise;
 };
+
+export const editArtist = ({ id, name }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/editArtist";
+
+	Axios.post(apiUrl, { id, name }).then((result) => {
+		if (result.data.errno) {
+			deferred.reject("edit artist failed");
+		} else {
+			deferred.resolve("artist edit successful");
+		}
+	});
+	return deferred.promise;
+};
+

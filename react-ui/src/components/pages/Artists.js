@@ -4,16 +4,23 @@ import {
 	getArtists,
 	addArtist,
 	removeArtists,
+	editArtist,
 } from "../../services/artists.service";
 import { Table } from "../Table";
 import { Modal } from "../Modal";
+
+let formAdd = new Map();
+let formEdit = new Map();
 
 export default function Artists(props) {
 	const [cols] = useState(["Name", "Actions"]);
 	const [data, setData] = useState([]);
 
-	const [show, setShow] = useState(false);
-	const closeModalHandler = () => setShow(false);
+	const [showAdd, setShowAdd] = useState(false);
+	const [showEdit, setShowEdit] = useState(false);
+
+	const closeAddModalHandler = () => setShowAdd(false);
+	const closeEditModalHandler = () => setShowEdit(false);
 
 	const getArtistsQuery = () => {
 		getArtists().then(
@@ -27,11 +34,17 @@ export default function Artists(props) {
 		);
 	};
 
-	let form = new Map();
+	const onChangeAdd = (element, changes) => {
+		formAdd.set(element, changes);
+	};
 
-	const SendForm = () => {
+	const onChangeEdit = (element, changes) => {
+		formEdit.set(element, changes);
+	};
+
+	const SendFormAdd = () => {
 		let sendData = {
-			name: form.get("name"),
+			name: formAdd.get("name"),
 		};
 		console.log(sendData);
 
@@ -46,8 +59,22 @@ export default function Artists(props) {
 		);
 	};
 
-	const onChange = (element, changes) => {
-		form.set(element, changes);
+	const SendFormEdit = () => {
+		let sendData = {
+			id: formEdit.get("id"),
+			name: formEdit.get("name"),
+		};
+		console.log(sendData);
+
+		editArtist(sendData).then(
+			function (result) {
+				console.log(result);
+				getArtistsQuery();
+			},
+			function (error) {
+				console.error(error);
+			}
+		);
 	};
 
 	useEffect(() => {
@@ -71,33 +98,51 @@ export default function Artists(props) {
 		);
 	};
 
+	const Edit = (row) => {
+		formEdit.set("id", row.id);
+		formEdit.set("name", row.name);
+		setShowEdit(true);
+	};
+
 	return (
 		<>
-			{show ? (
+			{(showAdd || showEdit) ? (
 				<div
-					onClick={closeModalHandler}
+					onClick={closeAddModalHandler}
 					className="back-drop fadeIn first"
 				></div>
 			) : null}
 
 			<div className="artist flex-page flex-page-column">
 				<div>
-					<button onClick={() => setShow(true)} className="btn btn-primary">
+					<button onClick={() => setShowAdd(true)} className="btn btn-primary">
 						Add new artist
 					</button>
 				</div>
 
-				{show ? (
+				{showAdd ? (
 					<Modal
-						show={show}
-						close={closeModalHandler}
+						show={showAdd}
+						close={closeAddModalHandler}
 						title="Add Artist"
 						inputs={["name"]}
 						selects={[]}
-						onChange={onChange}
-						onSubmit={SendForm}
+						onChange={onChangeAdd}
+						onSubmit={SendFormAdd}
 					/>
 				) : null}
+
+				{showEdit ? (
+					<Modal
+						show={showEdit}
+						close={closeEditModalHandler}
+						title="Edit Artist"
+						inputs={["name"]}
+						selects={[]}
+						onChange={onChangeEdit}
+						onSubmit={SendFormEdit}
+					/>
+				) : null}						
 
 				<Table
 					title="Artists"
@@ -105,6 +150,7 @@ export default function Artists(props) {
 					data={data}
 					property="artist"
 					remove={Remove}
+					edit={Edit}
 				></Table>
 			</div>
 		</>
