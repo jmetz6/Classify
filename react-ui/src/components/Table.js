@@ -51,7 +51,9 @@ export const Table = ({ title, cols, data, property, add, edit, remove }) => {
 																<button
 																	className="btn btn-primary"
 																	key={action + row.id}
-																	onClick={edit}
+																	onClick={() => {
+																		edit(row);
+																	}}
 																>
 																	Edit {property}
 																</button>
