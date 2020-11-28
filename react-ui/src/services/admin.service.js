@@ -69,3 +69,16 @@ export const removeUser = ({ id }) => {
 	});
 	return deferred.promise;
 };
+
+export const editUser = ({ id, username, password }) => {
+	const deferred = q.defer();
+	const apiUrl = "/api/editUser";
+	Axios.post(apiUrl, { userID: id, username: username, password: password }).then((result) => {
+		if (result.data.errno) {
+			deferred.reject("edit user failed");
+		} else {
+			deferred.resolve("success");
+		}
+	});
+	return deferred.promise;
+};

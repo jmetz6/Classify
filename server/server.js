@@ -80,6 +80,21 @@ app.post("/api/removeUser", (req, res) => {
 	});
 });
 
+app.post("/api/editUser", (req, res) => {
+	let id = req.body.userID;
+	let username = req.body.username;
+	let password = req.body.password;
+	let sql = "UPDATE `users` SET `username`=?, `password`=? WHERE `id`=?";
+	pool.query(sql, [username, password, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		//console.log(result);
+		res.send(result);
+	});
+});
+
 app.post("/api/login", (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;

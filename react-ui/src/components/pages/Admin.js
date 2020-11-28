@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "../Table";
 import { Modal } from "../Modal";
-import { getUsers, addUser, removeUser } from "../../services/admin.service";
+import { getUsers, addUser, editUser, removeUser } from "../../services/admin.service";
 import "../../App.css";
 
-export default function Admin(props) {
-	const [show, setShow] = useState(false);
+let addForm = new Map();
+let editForm = new Map();
 
-	const closeModalHandler = () => setShow(false);
+export default function Admin(props) {
+	const [showAdd, setShowAdd] = useState(false);
+	const [showEdit, setShowEdit] = useState(false);
+
+	const closeAddModalHandler = () => setShowAdd(false);
+	const closeEditModalHandler = () => setShowEdit(false);
+
 	const [cols] = useState(["Username", "Password", "Actions"]);
 	const [data, setData] = useState([]);
-	let form = new Map();
+
 
 	const getUsersQuery = () => {
 		getUsers().then(
@@ -24,10 +30,18 @@ export default function Admin(props) {
 		);
 	};
 
-	const SendForm = () => {
+	const onChangeAdd = (element, changes) => {
+		addForm.set(element, changes);
+	};
+
+	const onChangeEdit = (element, changes) => {
+		editForm.set(element, changes);
+	};
+
+	const SendFormAdd = () => {
 		let sendData = {
-			username: form.get("username"),
-			password: form.get("password"),
+			username: addForm.get("username"),
+			password: addForm.get("password"),
 		};
 		console.log(sendData);
 
@@ -43,10 +57,24 @@ export default function Admin(props) {
 		);
 	};
 
-	const onChange = (element, changes) => {
-		//stores the changes in vars
-		//console.log("Called onChange with " + changes);
-		form.set(element, changes);
+	const SendFormEdit = () => {
+		let sendData = {
+			id: editForm.get("id"),
+			username: editForm.get("username"),
+			password: editForm.get("password"),
+		};
+		console.log(sendData);
+
+		editUser(sendData).then(
+			function (results) {
+				console.log(results);
+				getUsersQuery();
+			},
+			function (error) {
+				console.log("Failed to edit user");
+				console.error(error);
+			}
+		);
 	};
 
 	useEffect(() => {
@@ -70,11 +98,19 @@ export default function Admin(props) {
 		);
 	};
 
+	const Edit = (row) => {
+		console.log("id is " + row.id);
+		editForm.set("id", row.id);
+		editForm.set("username", row.username);
+		editForm.set("password", row.password);
+		setShowEdit(true);
+	};
+
 	return (
 		<>
-			{show ? (
+			{(showAdd || showEdit) ? (
 				<div
-					onClick={closeModalHandler}
+					onClick={closeAddModalHandler}
 					className="back-drop fadeIn first"
 				></div>
 			) : null}
@@ -82,22 +118,34 @@ export default function Admin(props) {
 			<div>
 				<div className="admin flex-page flex-page-column">
 					<div>
-						<button onClick={() => setShow(true)} className="btn btn-primary">
+						<button onClick={() => setShowAdd(true)} className="btn btn-primary">
 							Add new user
 						</button>
 					</div>
 
-					{show ? (
+					{showAdd ? (
 						<Modal
-							show={show}
-							close={closeModalHandler}
+							show={showAdd}
+							close={closeAddModalHandler}
 							title="Add User"
 							inputs={["username", "password"]}
 							selects={[]}
-							onChange={onChange}
-							onSubmit={SendForm}
+							onChange={onChangeAdd}
+							onSubmit={SendFormAdd}
 						/>
 					) : null}
+
+					{showEdit ? (
+						<Modal
+							show={showEdit}
+							close={closeEditModalHandler}
+							title="Edit User"
+							inputs={["username", "password"]}
+							selects={[]}
+							onChange={onChangeEdit}
+							onSubmit={SendFormEdit}
+						/>
+					) : null}	
 
 					<Table
 						title="Users"
@@ -105,6 +153,7 @@ export default function Admin(props) {
 						data={data}
 						property="user"
 						remove={Remove}
+						edit={Edit}
 					></Table>
 				</div>
 			</div>
