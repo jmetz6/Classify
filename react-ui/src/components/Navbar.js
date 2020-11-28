@@ -118,8 +118,8 @@ function Navbar() {
 											buttonStyle="btn--medium"
 											onClick={(e) => {
 												localStorage.clear();
-												setLoggedin(true);
 												refreshPage();
+												setLoggedin(true);
 											}}
 										>
 											Logout
