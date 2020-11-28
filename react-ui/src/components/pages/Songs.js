@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import { Table } from "../Table";
-import { getSongs, addSong, removeSong } from "../../services/songs.service";
+import { getSongs, addSong, editSong, removeSong } from "../../services/songs.service";
 import { getPlaylists, addSongToPlaylist } from "../../services/playlists.service";
 import { getArtists } from "../../services/artists.service";
 import { Modal } from "../Modal";
 
 let addToPlaylistForm = new Map();
+let formEdit = new Map();
 
 export default function Songs(props) {
 	const [cols] = useState(["Name", "Actions"]);
@@ -17,6 +18,8 @@ export default function Songs(props) {
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [artists, setArtists] = useState([]);
 	const [playlists, setPlaylists] = useState([]);
+	const [showEdit, setShowEdit] = useState(false);
+	const closeEditModalHandler = () => setShowEdit(false);
 
 	let form = new Map();
 
@@ -28,24 +31,6 @@ export default function Songs(props) {
 			function (error) {
 				console.log("Failed to retrieve song data");
 				console.error(error);
-			}
-		);
-	};
-
-	const SendForm = () => {
-		let sendData = {
-			name: form.get("name"),
-			artist: form.get("artist"),
-		};
-		console.log(sendData);
-
-		addSong(sendData).then(
-			function (results) {
-				console.log("Success: added song '" + sendData.name + "'");
-				getSongsQuery();
-			},
-			function (error) {
-				console.log("Error: failed to add song '" + sendData.name + "'");
 			}
 		);
 	};
@@ -66,17 +51,33 @@ export default function Songs(props) {
 		);
 	}
 
+	const SendForm = () => {
+		let sendData = {
+			name: form.get("name"),
+			artist: form.get("artist"),
+		};
+		console.log(sendData);
+
+		addSong(sendData).then(
+			function (results) {
+				console.log("Success: added song '" + sendData.name + "'");
+				getSongsQuery();
+			},
+			function (error) {
+				console.log("Error: failed to add song '" + sendData.name + "'");
+			}
+		);
+	};
+
 	const onChange = (element, changes) => {
-		//stores the changes in vars
-		//console.log("Called onChange with " + changes);
 		form.set(element, changes);
 	};
 
 	const onChangeAddModal = (element, changes) => {
-		//stores the changes in vars
-		//console.log("Called onChange with " + changes);
 		addToPlaylistForm.set(element, changes);
 	};
+
+
 
 	useEffect(() => {
 		// let deferred = q.defer();
@@ -128,9 +129,37 @@ export default function Songs(props) {
 		addToPlaylistForm.set("sid", row.id);
 	}
 
+	const Edit = (row) => {
+		formEdit.set("id", row.id);
+		formEdit.set("name", row.name);
+		setShowEdit(true);
+	}
+
+	const onChangeEdit = (element, changes) => {
+		formEdit.set(element, changes);
+	};
+
+	const SendFormEdit = () => {
+		let sendData = {
+			id: formEdit.get("id"),
+			name: formEdit.get("name"),
+		};
+		console.log(sendData);
+
+		editSong(sendData).then(
+			function (result) {
+				console.log(result);
+				getSongsQuery();
+			},
+			function (error) {
+				console.error(error);
+			}
+		);
+	};
+
 	return (
 		<>
-			{(show || showAddModal) ? (
+			{(show || showAddModal || showEdit) ? (
 				<div
 					onClick={closeModalHandler}
 					className="back-drop fadeIn first"
@@ -170,13 +199,28 @@ export default function Songs(props) {
 					/>
 				) : null}	
 
+				
+				{showEdit ? (
+					<Modal
+						show={showEdit}
+						close={closeEditModalHandler}
+						title="Edit Song"
+						inputs={["name"]}
+						selects={[]}
+						onChange={onChangeEdit}
+						onSubmit={SendFormEdit}
+						selectOptions={[]}
+					/>
+				) : null}
+
 				<Table 
 					title="Songs" 
 					cols={cols} 
 					data={data} 
 					property="song" 
 					remove={Remove}
-					add={AddToPlaylist}>
+					add={AddToPlaylist}
+					edit={Edit}>
 				</Table>
 			</div>
 		</>
