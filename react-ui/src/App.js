@@ -20,7 +20,7 @@ function App() {
 				<Navbar />
 				<Switch>
 					{/* <Route path="/" exact component={Home} /> */}
-					<Route path="/" exact component={Songs} />
+					<Route path="/" exact component={Login} />
 					<Route path="/login" component={Login} />
 					{/* <Route path="/account" component={Account} /> */}
 					<Route path="/playlists" component={Playlists} />
