@@ -7,6 +7,8 @@ import "./Navbar.css";
 function Navbar() {
 	const [click, setClick] = useState(false);
 	const [button, setButton] = useState(true);
+	let localStr = localStorage.getItem("user");
+	const [loggedIn, setLoggedin] = useState(false);
 
 	const handleClick = () => setClick(!click);
 	const closeMobileMenu = () => setClick(false);
@@ -25,6 +27,10 @@ function Navbar() {
 
 	window.addEventListener("resize", showButton);
 
+	function refreshPage() {
+		window.location.reload(false);
+	}
+
 	return (
 		<>
 			<nav className="navbar">
@@ -42,20 +48,6 @@ function Navbar() {
 						<i className={click ? "fas fa-times" : "fas fa-bars"} />
 					</div>
 					<ul className={click ? "nav-menu active" : "nav-menu"}>
-						{/* <li className="nav-item">
-							<Link to="/login" className="nav-links" onClick={closeMobileMenu}>
-								Login
-							</Link>
-						</li> */}
-						{/* <li className="nav-item">
-							<Link
-								to="/account"
-								className="nav-links"
-								onClick={closeMobileMenu}
-							>
-								Account
-							</Link>
-						</li> */}
 						<li className="nav-item">
 							<Link
 								to="/search"
@@ -110,10 +102,31 @@ function Navbar() {
 							</Link>
 						</li>
 					</ul>
-					{button && (
-						<SignUpButton buttonStyle="btn--outline">Sign up</SignUpButton>
-					)}
-					{button && <Button buttonStyle="btn--medium">Log in</Button>}
+					<>
+						{!loggedIn && localStorage.getItem("user") === null
+							? button && (
+									<>
+										<SignUpButton buttonStyle="btn--outline">
+											Sign up
+										</SignUpButton>
+										<Button buttonStyle="btn--medium">Log in</Button>
+									</>
+							  )
+							: button && (
+									<>
+										<Button
+											buttonStyle="btn--medium"
+											onClick={(e) => {
+												localStorage.clear();
+												setLoggedin(true);
+												refreshPage();
+											}}
+										>
+											Logout
+										</Button>
+									</>
+							  )}
+					</>
 				</div>
 			</nav>
 		</>

@@ -27,6 +27,7 @@ export default function Login() {
 					alert("successful login");
 					localStorage.setItem("user", data1.username);
 					history.push("/songs");
+					window.location.reload(true);
 				} else {
 					alert("Invalid User");
 				}
@@ -73,13 +74,6 @@ export default function Login() {
 						value="Log In"
 					/>
 				</form>
-
-				{/* <!-- Remind Passowrd --> */}
-				{/* <div id="formFooter">
-					<a className="underlineHover" href="#">
-						Forgot Password?
-					</a>
-				</div> */}
 			</div>
 		</div>
 	);
