@@ -53,14 +53,11 @@ app.post("/api/signup", (req, res) => {
 
 app.post("/api/getUserByName", (req, res) => {
 	let username = req.body.username;
-	//console.log("username is " + username);
 	const sql = "SELECT * FROM `users` where `username`=?";
 	pool.query(sql, [username], (err, result) => {
 		if (err) {
-			//console.log(err);
 			res.send(err);
 		}
-		//console.log(result);
 		res.send(result);
 	});
 });
@@ -75,7 +72,6 @@ app.post("/api/removeUser", (req, res) => {
 			console.log(err);
 			res.send(err);
 		}
-		//console.log(result);
 		res.send(result);
 	});
 });
@@ -90,7 +86,48 @@ app.post("/api/editUser", (req, res) => {
 			console.log(err);
 			res.send(err);
 		}
-		//console.log(result);
+		res.send(result);
+	});
+});
+
+app.post("/api/editSong", (req, res) => {
+	let id = req.body.id;
+	let name = req.body.name;
+	
+	let sql = "UPDATE `songs` SET `name`=? WHERE `id`=?";
+	pool.query(sql, [name, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/editArtist", (req, res) => {
+	let id = req.body.id;
+	let name = req.body.name;
+
+	let sql = "UPDATE `artists` SET `name`=? WHERE `id`=?";
+	pool.query(sql, [name, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post("/api/editPlaylist", (req, res) => {
+	let id = req.body.id;
+	let name = req.body.name;
+
+	let sql = "UPDATE `playlists` SET `name`=? WHERE `id`=?";
+	pool.query(sql, [name, id], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
 		res.send(result);
 	});
 });
