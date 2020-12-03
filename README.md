@@ -9,6 +9,6 @@ https://cs340-classify.herokuapp.com/
 * launch the app with `npm start`
 
 ## Authors
-Arthur Hiew
-Josiah Metz
+* Arthur Hiew
+* Josiah Metz
 
